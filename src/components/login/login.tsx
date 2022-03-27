@@ -27,8 +27,8 @@ class Login extends Component<{}, any>{
 
     render() {
         return(
-            <div className="login-container">
-                <form onSubmit={this.handleSubmit}>
+            <div>
+                <form onSubmit={this.handleSubmit} className="login-container">
                     <label>
                         Email
                         <input type="text" name="email" onChange={this.handleFieldChange} placeholder="email"/>

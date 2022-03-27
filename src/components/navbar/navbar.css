@@ -1,0 +1,29 @@
+.navbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: 64px;
+    background-color:beige;
+    box-shadow: 0 8px 6px -6px #999;;
+}
+
+li {
+    list-style-type: none;
+}
+.center-pannel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.left-pannel {
+    display: flex;
+    align-items: center;
+    padding-left: 3em;
+}
+
+.right-pannel {
+    padding-right: 3em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
