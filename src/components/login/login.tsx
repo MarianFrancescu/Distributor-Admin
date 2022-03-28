@@ -1,49 +1,38 @@
-import React, {Component} from "react";
+import React, {useState} from "react";
 import './login.css'
 
-class Login extends Component<{}, any>{
-    constructor(props: any){
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleFieldChange = this.handleFieldChange.bind(this);
-        this.state = {
-            email: "",
-            password: ""
-        }
-    }
+function Login() {
 
-    handleSubmit(e: any) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log('user', this.state.email, this.state.password);
+        console.log('user', email, password);
     }
 
-    handleFieldChange(event: any) {
-        this.setState(
-            {
-                [event.target.name]: event.target.value
-            }
-        );
+    const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEmail(event.target.value);
+        setPassword(event.target.value);
     }
 
-    render() {
-        return(
-            <div>
-                <form onSubmit={this.handleSubmit} className="login-container">
-                    <label>
-                        Email
-                        <input type="text" name="email" onChange={this.handleFieldChange} placeholder="email"/>
-                    </label>
-                    <label>
-                        Password
-                        <input type="password" name="password" onChange={this.handleFieldChange} placeholder="password"/>
-                    </label>
-                    <div>
-                        <input type="submit" value="Submit" />
-                    </div>
-                </form>
-            </div>
-        );
-    }
+    return(
+        <div>
+            <form onSubmit={e => { handleSubmit(e) }} className="login-container">
+                <label>
+                    Email
+                    <input type="text" name="email" onChange={handleFieldChange} placeholder="email"/>
+                </label>
+                <label>
+                    Password
+                    <input type="password" name="password" onChange={handleFieldChange} placeholder="password"/>
+                </label>
+                <div>
+                    <input type="submit" value="Submit" />
+                </div>
+            </form>
+        </div>
+    );
 }
 
 export default Login;
