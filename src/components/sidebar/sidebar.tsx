@@ -1,5 +1,6 @@
 import React from "react";
 import { Menu, MenuItem, ProSidebar, SidebarContent, SidebarFooter, SidebarHeader } from "react-pro-sidebar";
+import { Link } from "react-router-dom";
 import './sidebar.css';
 
 function Sidebar() {
@@ -10,9 +11,9 @@ function Sidebar() {
             </SidebarHeader>
             <SidebarContent>
                 <Menu iconShape="square">
-                    <MenuItem>Students</MenuItem>
-                    <MenuItem>Disciplines</MenuItem>
-                    <MenuItem>Institutions</MenuItem>
+                    <MenuItem><Link to="/students">Students</Link></MenuItem>
+                    <MenuItem><Link to="/disciplines">Disciplines</Link></MenuItem>
+                    <MenuItem><Link to="/institutions">Institutions</Link></MenuItem>
                 </Menu>
             </SidebarContent>
             <SidebarFooter>
