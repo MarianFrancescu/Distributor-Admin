@@ -15,14 +15,14 @@ function App() {
     <div className='App'>
     <BrowserRouter>
       <MyNavbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <Sidebar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <Sidebar className="sidebar" menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <Routes>
-        <Route path='/' element={<Dashboard/>}></Route>
-        <Route path='/dashboard' element={<Dashboard/>}></Route>
-        <Route path='/login' element={<Login/>}></Route>
-        <Route path='/students' element={<Students/>}></Route>
-        <Route path='/disciplines' element={<Disciplines/>}></Route>
-        <Route path='/institutions' element={<Institutions/>}></Route>
+          <Route path='/' element={<Dashboard/>}></Route>
+          <Route path='/dashboard' element={<Dashboard/>}></Route>
+          <Route path='/login' element={<Login/>}></Route>
+          <Route path='/students' element={<Students/>}></Route>
+          <Route path='/disciplines' element={<Disciplines/>}></Route>
+          <Route path='/institutions' element={<Institutions/>}></Route>
       </Routes>
     </BrowserRouter>
     </div>
