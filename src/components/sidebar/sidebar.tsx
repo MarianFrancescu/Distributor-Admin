@@ -3,9 +3,9 @@ import { Menu, MenuItem, ProSidebar, SidebarContent, SidebarFooter, SidebarHeade
 import { Link } from "react-router-dom";
 import './sidebar.css';
 
-function Sidebar() {
+function Sidebar({menuOpen, setMenuOpen}: any) {
     return(
-        <ProSidebar className="sidebar">
+        <ProSidebar className={"sidebar " + (menuOpen && "active")}>
             <SidebarHeader>
                 logo
             </SidebarHeader>

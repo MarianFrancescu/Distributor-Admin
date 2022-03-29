@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Dashboard from './components/dashboard/dashboard';
@@ -10,11 +10,12 @@ import Sidebar from './components/sidebar/sidebar';
 import Students from './components/students/students';
 
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className='App'>
     <BrowserRouter>
-      <MyNavbar />
-      <Sidebar />
+      <MyNavbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <Sidebar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <Routes>
         <Route path='/' element={<Dashboard/>}></Route>
         <Route path='/dashboard' element={<Dashboard/>}></Route>

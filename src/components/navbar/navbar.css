@@ -25,6 +25,10 @@ li {
     padding-left: 3em;
 }
 
+.open-nav {
+    cursor: pointer;
+}
+
 .right-pannel {
     padding-right: 3em;
     display: flex;

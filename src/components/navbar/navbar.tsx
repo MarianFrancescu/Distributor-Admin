@@ -2,13 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './navbar.css';
 
-function MyNavbar() {
+function MyNavbar({menuOpen, setMenuOpen}: any) {
     return(
-        <div className="navbar">
+        <div className={"navbar " + (menuOpen && "active")}>
             <div className="left-pannel"> 
-                <li>
+                <div className="open-nav" onClick={()=>setMenuOpen(!menuOpen)}>
+                        <span className="line-dashboard">Dashboard</span>
+                    </div>
+                {/* <li>
                     <Link to='/dashboard'>Dasboard</Link>
-                </li>
+                </li> */}
             </div>
             <div className="center-pannel">
                 <li>
