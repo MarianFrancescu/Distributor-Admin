@@ -2,15 +2,23 @@ import { Box, TextField, FormControlLabel, Checkbox, Button, Grid, Avatar, Typog
 import React, { useState } from "react";
 import LockOpenRoundedIcon from '@mui/icons-material/LockOpenRounded';
 import './login.css'
+import service from '../../services/service';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const history = useNavigate();
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        console.log('user', email, password);
+        e.preventDefault();
+        service.loginUser(email, password).then(data => {
+            localStorage.setItem('admin-token', data.token);
+            localStorage.setItem('admin-id', data.userID);
+            }
+        );
+        history('/dashboard');
     }
 
     return (
