@@ -9,6 +9,12 @@ export default {
         }).then(
             (response) => response.data
         ).catch(err => console.log(err))
+    },
+
+    getUsers() {
+        return axios.get(`${apiUrl}users`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
     }
 
 }

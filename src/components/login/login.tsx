@@ -1,14 +1,17 @@
-import { Box, TextField, FormControlLabel, Checkbox, Button, Grid, Avatar, Typography } from "@mui/material";
-import React, { useState } from "react";
+import { Box, TextField, Button, Avatar, Typography } from "@mui/material";
+import React, { useContext, useState } from "react";
 import LockOpenRoundedIcon from '@mui/icons-material/LockOpenRounded';
 import './login.css'
 import service from '../../services/service';
 import { useNavigate } from 'react-router-dom';
+import {MyContext} from '../../App';
 
 function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const {isLoggedUser, setUserStatus} = useContext(MyContext);
 
     const history = useNavigate();
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -16,6 +19,7 @@ function Login() {
         service.loginUser(email, password).then(data => {
             localStorage.setItem('admin-token', data.token);
             localStorage.setItem('admin-id', data.userID);
+            setUserStatus(true);
             }
         );
         history('/dashboard');

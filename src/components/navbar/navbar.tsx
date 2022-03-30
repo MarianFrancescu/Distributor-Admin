@@ -1,26 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import './navbar.css';
+import { MyContext } from '../../App';
 
 function MyNavbar({menuOpen, setMenuOpen}: any) {
 
-    const [isLoggedUser, setStatus] = useState(() => {
-        const token = localStorage.getItem('admin-token');
-        return token !== null ? true : false;
-    });
-
-    useEffect(() => {
-        console.log('log', isLoggedUser);
-    })
+    const {isLoggedUser, setUserStatus} = useContext(MyContext);
 
     const eraseToken = () => {
         localStorage.removeItem('admin-token');
         localStorage.removeItem('admin-id');
-        setStatus(false);
+        setUserStatus(false);
     }
 
     const loggedUserView = () => {
-        console.log(isLoggedUser)
         if(isLoggedUser) {
             return (
                 <li>
