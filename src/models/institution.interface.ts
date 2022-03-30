@@ -1,4 +1,4 @@
-export interface Institution {
+export default interface Institution {
     institution: string;
     faculties: Faculty[]
 }

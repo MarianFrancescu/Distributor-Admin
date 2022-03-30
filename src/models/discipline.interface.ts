@@ -1,4 +1,4 @@
-export interface Discipline {
+export default interface Discipline {
     _id?: string;
     teacher: string;
     name: string;

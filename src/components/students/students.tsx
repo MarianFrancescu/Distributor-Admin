@@ -1,20 +1,29 @@
 import { Paper, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './students.css';
-
-function createData(firstName: string, lastName: String,
-    registrationNumber: string, studyInstitution: string, faculty: string) {
-    return { registrationNumber, firstName, lastName, studyInstitution, faculty };
-}
-
-const rows = [
-    createData('George', 'Panait', 'lm123', 'Universitatea Politehnica Timisoara', 'Automatica si Calculatoare'),
-    createData('Mihai', 'Georgel', 'lm133', 'Universitatea Politehnica Timisoara', 'Automatica si Calculatoare'),
-    createData('Simu', 'Ion', 'lm113', 'Universitatea Politehnica Timisoara', 'Automatica si Calculatoare'),
-    createData('Belu', 'Vlad', 'mc034', 'Universitatea de Vest Timisoara', 'Informatica'),
-];
+import service from '../../services/service';
+import UserInterface from '../../models/user.interface';
 
 function Students() {
+    const [students, setStudents] = useState<any>([]);
+
+    const getStudentsData = async () => {
+
+        try{
+            const response = await service.getUsers();
+            const studentResponse = response as UserInterface;
+            setStudents(studentResponse);
+            
+        } catch(error) {
+            console.log(error);
+        }
+        
+    }
+
+    useEffect(() => {
+        getStudentsData();   
+    }, []);
+    
     return (
         <div className="students-container">
             <TableContainer component={Paper}>
@@ -29,7 +38,7 @@ function Students() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {students.map((row: UserInterface) => (
                             <TableRow
                                 key={row.firstName}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -43,7 +52,7 @@ function Students() {
                                 <TableCell align="right">{row.faculty}</TableCell>
                             </TableRow>
                         ))}
-                    </TableBody>
+                    </TableBody>   
                 </Table>
             </TableContainer>
         </div>
