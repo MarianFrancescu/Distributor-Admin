@@ -9,11 +9,11 @@ function Sidebar({menuOpen, setMenuOpen}: any) {
             <SidebarHeader>
                 logo
             </SidebarHeader>
-            <SidebarContent>
-                <Menu iconShape="square">
-                    <MenuItem><Link to="/students">Students</Link></MenuItem>
-                    <MenuItem><Link to="/disciplines">Disciplines</Link></MenuItem>
-                    <MenuItem><Link to="/institutions">Institutions</Link></MenuItem>
+            <SidebarContent >
+                <Menu className="list-container" iconShape="square">
+                    <MenuItem><Link className="link" to="/students">Students</Link></MenuItem>
+                    <MenuItem><Link className="link" to="/disciplines">Disciplines</Link></MenuItem>
+                    <MenuItem><Link className="link" to="/institutions">Institutions</Link></MenuItem>
                 </Menu>
             </SidebarContent>
             <SidebarFooter>
