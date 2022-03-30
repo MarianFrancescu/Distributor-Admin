@@ -1,7 +1,7 @@
 import { Box, TextField, Button, Avatar, Typography } from "@mui/material";
 import React, { useContext, useState } from "react";
 import LockOpenRoundedIcon from '@mui/icons-material/LockOpenRounded';
-import './login.css'
+import './login.scss'
 import service from '../../services/service';
 import { useNavigate } from 'react-router-dom';
 import {MyContext} from '../../App';

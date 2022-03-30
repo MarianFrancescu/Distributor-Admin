@@ -1,7 +1,7 @@
 import React from "react";
 import { Menu, MenuItem, ProSidebar, SidebarContent, SidebarFooter, SidebarHeader } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
-import './sidebar.css';
+import './sidebar.scss';
 
 function Sidebar({menuOpen, setMenuOpen}: any) {
     return(

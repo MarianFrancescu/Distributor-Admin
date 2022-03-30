@@ -1,6 +1,6 @@
 import { Box, Card, CardContent, Typography, CardActions, Button } from "@mui/material";
 import React from "react";
-import './institutions.css';
+import './institutions.scss';
 
 const bull = (
     <Box

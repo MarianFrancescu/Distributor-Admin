@@ -1,8 +1,9 @@
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, TablePagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import service from "../../services/service";
-import './disciplines.css';
+import './disciplines.scss';
 import DisciplineInterface from "../../models/discipline.interface";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function createData(name: string, teacher: string,
     studyInstitution: string, faculty: string, department: string, studyYear: number) {
@@ -19,6 +20,7 @@ function Disciplines() {
     const [disciplines, setDisciplines] = useState<any>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
+    const navigation = useNavigate();
 
     const getDisciplinesData = async () => {
         try{
@@ -37,17 +39,27 @@ function Disciplines() {
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
-      };
+    }
     
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);
-    };
+    }
+
+    const handleClickView = (id: string) => {
+        navigation(`/discipline/${id}`);
+    }
+    const handleClickEdit = (id: string) => {
+        console.log('pressed', id);
+    }
+    const handleClickDelete = (id: string) => {
+        console.log('pressed', id);
+    }
 
     return(
         <div className="disciplines-container">
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>Discipline</TableCell>
@@ -56,6 +68,7 @@ function Disciplines() {
                             <TableCell align="right">Faculty</TableCell>
                             <TableCell align="right">Department</TableCell>
                             <TableCell align="right">Study Year</TableCell>
+                            <TableCell align="right">Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -72,6 +85,11 @@ function Disciplines() {
                                 <TableCell align="right">{row.faculty}</TableCell>
                                 <TableCell align="right">{row.department}</TableCell>
                                 <TableCell align="right">{row.studyYear}</TableCell>
+                                <TableCell align="right">
+                                    <button onClick={() => handleClickView(row._id as string)}>View</button>
+                                    <button onClick={() => handleClickEdit(row._id as string)}>Edit</button>
+                                    <button onClick={() => handleClickDelete(row._id as string)}>Delete</button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import Dashboard from './components/dashboard/dashboard';
 import Disciplines from './components/disciplines/disciplines';
 import Institutions from './components/institutions/institutions';
@@ -8,6 +8,7 @@ import Login from './components/login/login';
 import MyNavbar from './components/navbar/navbar';
 import Sidebar from './components/sidebar/sidebar';
 import Students from './components/students/students';
+import Discipline from './components/discipline/discipline';
 
 export type GlobalContext = {
   isLoggedUser: boolean, 
@@ -18,10 +19,6 @@ export const MyContext = React.createContext<GlobalContext>({isLoggedUser: false
 
 function App() {
 
-  // const [isLoggedUser, setUserStatus] = useState(() => {
-  //   const token = localStorage.getItem('admin-token');
-  //   return token !== null ? true : false;
-  // });
   const [isLoggedUser, setUserStatus] = useState(false);
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -37,6 +34,7 @@ function App() {
           <Route path='/login' element={<Login/>}></Route>
           <Route path='/students' element={<Students/>}></Route>
           <Route path='/disciplines' element={<Disciplines/>}></Route>
+          <Route path='/discipline/:disciplineID' element={<Discipline/>}></Route>
           <Route path='/institutions' element={<Institutions/>}></Route>
       </Routes>
     </BrowserRouter>

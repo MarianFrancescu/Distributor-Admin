@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import './navbar.css';
+import './navbar.scss';
 import { MyContext } from '../../App';
 
 function MyNavbar({menuOpen, setMenuOpen}: any) {

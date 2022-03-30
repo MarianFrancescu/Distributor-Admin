@@ -1,6 +1,6 @@
 import { Paper, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import './students.css';
+import './students.scss';
 import service from '../../services/service';
 import UserInterface from '../../models/user.interface';
 
@@ -27,7 +27,7 @@ function Students() {
     return (
         <div className="students-container">
             <TableContainer component={Paper}>
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>FirstName</TableCell>
