@@ -5,7 +5,14 @@ import service from "../../services/service";
 import DisciplineInterface from "../../models/discipline.interface";
 
 interface MyFormValues {
-    firstName: string;
+    name: string;
+    teacher: string;
+    studyInstitution: string;
+    faculty: string;
+    department: string;
+    studyYear: string;
+    maxNoOfStudentsPerTimetable: string;
+    timetable: Array<any>;
   }
 
 function Discipline() {
@@ -27,11 +34,21 @@ function Discipline() {
     useEffect(() => {
         getDisciplineData();
     }, []);
-    
-    const initialValues: MyFormValues = { firstName: '' };
-    return (
+
+    const initialValues: MyFormValues = { 
+        name: discipline?.name ? discipline?.name : '',
+        teacher: discipline?.teacher ? discipline?.teacher : '',
+        studyInstitution: discipline?.studyInstitution ? discipline?.studyInstitution : '',
+        faculty: discipline?.faculty ? discipline?.faculty : '',
+        department: discipline?.department ? discipline?.department : '',
+        studyYear: discipline?.studyYear ? discipline?.studyYear : '',
+        maxNoOfStudentsPerTimetable: discipline?.maxNoOfStudentsPerTimetable ? discipline?.maxNoOfStudentsPerTimetable : '',
+        timetable: []
+    };
+    return discipline ? (
         <div>
         <h1>Edit Discipline</h1>
+        
         <Formik
             initialValues={initialValues}
             onSubmit={(values, actions) => {
@@ -41,13 +58,27 @@ function Discipline() {
             }}
         >
             <Form>
-            <label htmlFor="firstName">First Name</label>
-            <Field id="firstName" name="firstName" placeholder="First Name" />
-            <button type="submit">Submit</button>
+                <label htmlFor="name">First Name</label>
+                <Field id="name" name="name" placeholder="First Name" />
+                <label htmlFor="teacher">Teacher</label>
+                <Field id="teacher" name="teacher" placeholder="Teacher" />
+                <label htmlFor="studyInstitution">Study institution</label>
+                <Field id="studyInstitution" name="studyInstitution" placeholder="Study institution" />
+                <label htmlFor="faculty">Faculty</label>
+                <Field id="faculty" name="faculty" placeholder="Faculty" />
+                <label htmlFor="department">Department</label>
+                <Field id="department" name="department" placeholder="Department" />
+                <label htmlFor="studyYear">Study year</label>
+                <Field id="studyYear" name="studyYear" placeholder="Study year" />
+                <label htmlFor="maxNoOfStudentsPerTimetable">Max students</label>
+                <Field id="maxNoOfStudentsPerTimetable" name="maxNoOfStudentsPerTimetable" placeholder="Max students" />
+                {/* <label htmlFor="studyInstitution">Study institution</label>
+                <Field id="studyInstitution" name="studyInstitution" placeholder="Study institution" /> */}
+                <button type="submit">Submit</button>
             </Form>
         </Formik>
         </div>
-    );
+    ) : <span>failed to load discipline. try again later</span>;
 }
 
 export default Discipline;
