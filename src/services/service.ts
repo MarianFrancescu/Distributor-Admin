@@ -21,6 +21,12 @@ export default {
         return axios.get(`${apiUrl}disciplines`)
             .then(response => response.data)
             .catch(err => console.log(err));
+    },
+
+    getDiscipline(disciplineID: string) {
+        return axios.get(`${apiUrl}discipline/${disciplineID}`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
     }
 
 }
