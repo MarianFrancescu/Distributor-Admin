@@ -1,4 +1,4 @@
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, TablePagination } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import service from "../../services/service";
 import './disciplines.css';
@@ -17,6 +17,8 @@ const rows = [
 
 function Disciplines() {
     const [disciplines, setDisciplines] = useState<any>([]);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(5);
 
     const getDisciplinesData = async () => {
         try{
@@ -33,6 +35,15 @@ function Disciplines() {
         getDisciplinesData();
     }, []);
 
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
+      };
+    
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
     return(
         <div className="disciplines-container">
             <TableContainer component={Paper}>
@@ -48,7 +59,7 @@ function Disciplines() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {disciplines.map((row: DisciplineInterface) => (
+                        {disciplines.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: DisciplineInterface) => (
                             <TableRow
                                 key={row.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -66,6 +77,15 @@ function Disciplines() {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={disciplines.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
         </div>
     );
 }
