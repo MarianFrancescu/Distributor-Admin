@@ -1,9 +1,10 @@
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, TablePagination } from "@mui/material";
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, TablePagination, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import service from "../../services/service";
 import './disciplines.scss';
 import DisciplineInterface from "../../models/discipline.interface";
 import { Navigate, useNavigate } from "react-router-dom";
+import DisciplineAddDialog from "../discipline-add-dialog/discipline-add-dialog";
 
 function createData(name: string, teacher: string,
     studyInstitution: string, faculty: string, department: string, studyYear: number) {
@@ -56,8 +57,14 @@ function Disciplines() {
         console.log('pressed', id);
     }
 
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     return(
         <div className="disciplines-container">
+            <Button onClick={handleOpen}>Open modal</Button>
+            <DisciplineAddDialog openModal={open} closeModal={handleClose} />
             <TableContainer component={Paper}>
                 <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
