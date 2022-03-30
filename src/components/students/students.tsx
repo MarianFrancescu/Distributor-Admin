@@ -11,8 +11,8 @@ function Students() {
 
         try{
             const response = await service.getUsers();
-            const studentResponse = response as UserInterface;
-            setStudents(studentResponse);
+            const studentResponse = response as UserInterface[];
+            setStudents([...studentResponse]);
             
         } catch(error) {
             console.log(error);
@@ -21,7 +21,7 @@ function Students() {
     }
 
     useEffect(() => {
-        getStudentsData();   
+        getStudentsData();  
     }, []);
     
     return (

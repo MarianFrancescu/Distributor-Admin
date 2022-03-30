@@ -1,6 +1,8 @@
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import service from "../../services/service";
 import './disciplines.css';
+import DisciplineInterface from "../../models/discipline.interface";
 
 function createData(name: string, teacher: string,
     studyInstitution: string, faculty: string, department: string, studyYear: number) {
@@ -14,6 +16,23 @@ const rows = [
 ];
 
 function Disciplines() {
+    const [disciplines, setDisciplines] = useState<any>([]);
+
+    const getDisciplinesData = async () => {
+        try{
+            const response = await service.getDisciplines();
+            const disciplineResponse = response as DisciplineInterface[];
+            setDisciplines([...disciplineResponse]);
+            
+        } catch(error) {
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        getDisciplinesData();
+    }, []);
+
     return(
         <div className="disciplines-container">
             <TableContainer component={Paper}>
@@ -29,7 +48,7 @@ function Disciplines() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {disciplines.map((row: DisciplineInterface) => (
                             <TableRow
                                 key={row.name}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

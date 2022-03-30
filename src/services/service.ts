@@ -15,6 +15,12 @@ export default {
         return axios.get(`${apiUrl}users`)
             .then(response => response.data)
             .catch(err => console.log(err));
+    },
+
+    getDisciplines() {
+        return axios.get(`${apiUrl}disciplines`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
     }
 
 }
