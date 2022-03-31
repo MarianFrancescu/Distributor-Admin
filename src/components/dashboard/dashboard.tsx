@@ -1,9 +1,10 @@
 import React from "react";
+import './dashboard.scss';
 
 function Dashboard() {
 
     return(
-        <div>
+        <div className="dashboard-container">
             dashboard component works
         </div>
     );

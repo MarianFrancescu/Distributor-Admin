@@ -32,10 +32,10 @@ function MyNavbar({menuOpen, setMenuOpen}: any) {
     return(
         <div className={"navbar " + (menuOpen && "active")}>
             <div className="left-pannel"> 
-                <div className="open-nav link" onClick={()=>setMenuOpen(!menuOpen)}>
+                {/* <div className="open-nav link" onClick={()=>setMenuOpen(!menuOpen)}>
                         <span className="line-dashboard text">Dashboard</span>
-                </div>
-                {/* <li>
+                </div> 
+                <li>
                     <Link to='/dashboard'>Dasboard</Link>
                 </li> */}
             </div>

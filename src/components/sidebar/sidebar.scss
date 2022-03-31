@@ -1,17 +1,31 @@
-.sidebar {
-    position: fixed;
-    left: -200px;
-    top: 64px;
-    transition: left 0 0.3s;
-    min-height: 100vh;
-    background-color:beige;
-    transition: all 1s ease;
+@import '~react-pro-sidebar/dist/scss/styles.scss';
+
+//bg #00344d
+// #504881
+// #b44b89
+//color #fa605e
+// #ffa600
+
+$rich-black-fogra-29: #0c1618ff;
+$deep-jungle-green: #004643ff;
+$cornsilk: #faf4d3ff;
+$metallic-gold: #d1ac00ff;
+$peach-crayola: #f6be9aff;
+.side {
+    height: 100vh;
+    background-color: #d36868;
 }
 
-.active {
-    left: 0;
+.header {
+    cursor: pointer;
+}
+.header:hover {
+    color: #fa605e;
 }
 
-ul {
-    list-style-type: none;
+.basic-container {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

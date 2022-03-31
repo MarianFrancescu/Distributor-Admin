@@ -25,20 +25,22 @@ function App() {
   return (
     <div className='App'>
       <MyContext.Provider value={{isLoggedUser, setUserStatus}}>
-    <BrowserRouter>
-      <MyNavbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <Sidebar className="sidebar" menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      <Routes>
-          <Route path='/' element={<Dashboard/>}></Route>
-          <Route path='/dashboard' element={<Dashboard/>}></Route>
-          <Route path='/login' element={<Login/>}></Route>
-          <Route path='/students' element={<Students/>}></Route>
-          <Route path='/disciplines' element={<Disciplines/>}></Route>
-          <Route path='/discipline/:disciplineID' element={<Discipline/>}></Route>
-          <Route path='/institutions' element={<Institutions/>}></Route>
-      </Routes>
-    </BrowserRouter>
-    </MyContext.Provider>
+        <BrowserRouter>
+          <MyNavbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+          <Sidebar className="sidebar" menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+          <div className='app-container'>
+            <Routes>
+                <Route path='/' element={<Dashboard/>}></Route>
+                <Route path='/dashboard' element={<Dashboard/>}></Route>
+                <Route path='/login' element={<Login/>}></Route>
+                <Route path='/students' element={<Students/>}></Route>
+                <Route path='/disciplines' element={<Disciplines/>}></Route>
+                <Route path='/discipline/:disciplineID' element={<Discipline/>}></Route>
+                <Route path='/institutions' element={<Institutions/>}></Route>
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </MyContext.Provider>
     </div>
   );
 }

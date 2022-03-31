@@ -2,7 +2,15 @@
   text-align: center;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: left;
+  width: 100%;
+}
+
+.app-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
   justify-content: center;
 }
 
