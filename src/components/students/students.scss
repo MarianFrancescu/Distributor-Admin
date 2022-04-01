@@ -2,3 +2,15 @@
     width: 90%;
     margin: auto;
 }
+
+.students-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1200px) {
+    .students-container{
+        width: 100%;
+    }
+}

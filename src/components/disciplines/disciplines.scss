@@ -2,3 +2,9 @@
     width: 90%;
     margin: auto;
 }
+
+@media screen and (max-width: 1200px) {
+    .disciplines-container{
+        width: 100%;
+    }
+}
