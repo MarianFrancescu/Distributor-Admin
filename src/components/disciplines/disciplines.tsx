@@ -48,12 +48,10 @@ function Disciplines() {
         setPage(0);
     }
 
-    const handleClickView = (id: string) => {
+    const handleClickEdit = (id: string) => {
         navigation(`/discipline/${id}`);
     }
-    const handleClickEdit = (id: string) => {
-        console.log('pressed', id);
-    }
+
     const handleClickDelete = (id: string) => {
         setDisciplineFunction(id);
         console.log('pressed', disciplineID);
@@ -103,7 +101,6 @@ function Disciplines() {
                                     <TableCell align="right">{row.department}</TableCell>
                                     <TableCell align="right">{row.studyYear}</TableCell>
                                     <TableCell align="right">
-                                        <button onClick={() => handleClickView(row._id as string)}>View</button>
                                         <button onClick={() => handleClickEdit(row._id as string)}>Edit</button>
                                         <button onClick={() => handleClickDelete(row._id as string)}>Delete</button>
                                     </TableCell>

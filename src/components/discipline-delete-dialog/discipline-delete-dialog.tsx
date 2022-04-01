@@ -42,12 +42,12 @@ function DisciplineDeleteDialog ({openModal, closeModal, disciplineID}: any) {
         <Fade in={openModal}>
           <Box sx={style}>
             <Typography id="transition-modal-title" variant="h6" component="h2">
-              Text in a modalsa {disciplineID}
+              Warning!
             </Typography>
             <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+              Delete this discipline?
             </Typography>
-            <Button onClick={closeModal}>Close modal</Button>
+            <Button onClick={closeModal}>Close</Button>
             <Button onClick={handleDelete}>Delete</Button>
           </Box>
         </Fade>
