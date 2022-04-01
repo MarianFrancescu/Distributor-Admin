@@ -59,55 +59,66 @@ function Discipline() {
           //    alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
         }}
-        >
-            {({ values }) => (
+      >
+        {({ values }) => (
           <Form>
-            <div className="basic-details">
-              <label htmlFor="name">First Name</label>
-              <Field id="name" name="name" placeholder="First Name" />
-              <label htmlFor="teacher">Teacher</label>
-              <Field id="teacher" name="teacher" placeholder="Teacher" />
-              <label htmlFor="studyInstitution">Study institution</label>
-              <Field
-                id="studyInstitution"
-                name="studyInstitution"
-                placeholder="Study institution"
-              />
-              <label htmlFor="faculty">Faculty</label>
-              <Field id="faculty" name="faculty" placeholder="Faculty" />
-              <label htmlFor="department">Department</label>
-              <Field
-                id="department"
-                name="department"
-                placeholder="Department"
-              />
-              <label htmlFor="studyYear">Study year</label>
-              <Field id="studyYear" name="studyYear" placeholder="Study year" />
-              <label htmlFor="maxNoOfStudentsPerTimetable">Max students</label>
-              <Field
-                id="maxNoOfStudentsPerTimetable"
-                name="maxNoOfStudentsPerTimetable"
-                placeholder="Max students"
-              />
-            </div>
-            <div className="timetable-container">
-              <FieldArray
-                name="timetable"
-                render={({ insert, remove, push }) => (
-                  <div>
-                    {values.timetable.length > 0 &&
-                      values.timetable.map((option, index) => (
-                        <div className="row" key={index}>
-                          <div className="col">
-                            <label htmlFor={`timetable.${index}.option`}>
-                              Option #{index + 1}
-                            </label>
-                            <Field
-                              name={`timetable.${index}.option`}
-                              placeholder="Option"
-                              type="text"
-                            />
-                            {/* {errors.timetable &&
+            <div className="form-container">
+              <div className="basic-details">
+                <div className="trivial-details">
+                  <label htmlFor="name">Name</label>
+                  <Field id="name" name="name" placeholder="First Name" />
+                  <label htmlFor="teacher">Teacher</label>
+                  <Field id="teacher" name="teacher" placeholder="Teacher" />
+                  <label htmlFor="studyYear">Study year</label>
+                  <Field
+                    id="studyYear"
+                    name="studyYear"
+                    placeholder="Study year"
+                  />
+                  <label htmlFor="maxNoOfStudentsPerTimetable">
+                    Max students
+                  </label>
+                  <Field
+                    id="maxNoOfStudentsPerTimetable"
+                    name="maxNoOfStudentsPerTimetable"
+                    placeholder="Max students"
+                  />
+                </div>
+                <div className="institutional-details">
+                  <label htmlFor="studyInstitution">Study institution</label>
+                  <Field
+                    id="studyInstitution"
+                    name="studyInstitution"
+                    placeholder="Study institution"
+                  />
+                  <label htmlFor="faculty">Faculty</label>
+                  <Field id="faculty" name="faculty" placeholder="Faculty" />
+                  <label htmlFor="department">Department</label>
+                  <Field
+                    id="department"
+                    name="department"
+                    placeholder="Department"
+                  />
+                </div>
+              </div>
+              <div className="timetable-container">
+                <FieldArray
+                  name="timetable"
+                  render={({ insert, remove, push }) => (
+                    <div>
+                      {values.timetable.length > 0 &&
+                        values.timetable.map((option, index) => (
+                          <div className="row" key={index}>
+                            <div className="col">
+                              <label htmlFor={`timetable.${index}.option`}>
+                                Option #{index + 1}
+                              </label>
+                              <Field
+                                name={`timetable.${index}.option`}
+                                placeholder="Option"
+                                type="text"
+                              />
+                              {/* {errors.timetable &&
                           errors.timetable[index] &&
                           errors.timetable[index].name &&
                           touched.timetable &&
@@ -116,8 +127,8 @@ function Discipline() {
                               {errors.timetable[index].name}
                             </div>
                           )} */}
-                          </div>
-                          {/* <div className="col">
+                            </div>
+                            {/* <div className="col">
                         <label htmlFor={`timetable.${index}.email`}>Email</label>
                         <Field
                           name={`timetable.${index}.email`}
@@ -134,27 +145,28 @@ function Discipline() {
                             </div>
                           )} 
                       </div> */}
-                          <div className="col">
-                            <button
-                              type="button"
-                              className="secondary"
-                              onClick={() => remove(index)}
-                            >
-                              X
-                            </button>
+                            <div className="col">
+                              <button
+                                type="button"
+                                className="secondary"
+                                onClick={() => remove(index)}
+                              >
+                                X
+                              </button>
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    <button
-                      type="button"
-                      className="secondary"
-                      onClick={() => push({ option: "" })}
-                    >
-                      Add Option
-                    </button>
-                  </div>
-                )}
-              />
+                        ))}
+                      <button
+                        type="button"
+                        className="secondary"
+                        onClick={() => push({ option: "" })}
+                      >
+                        Add Option
+                      </button>
+                    </div>
+                  )}
+                />
+              </div>
             </div>
             <button type="submit">Submit</button>
           </Form>
