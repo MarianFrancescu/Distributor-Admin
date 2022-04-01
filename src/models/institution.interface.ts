@@ -1,5 +1,5 @@
 export default interface Institution {
-    institution: string;
+    studyInstitution: string;
     faculties: Faculty[]
 }
 

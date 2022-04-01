@@ -33,6 +33,12 @@ export default {
         return axios.delete(`${apiUrl}deleteDiscipline/${disciplineID}`)
             .then(response => response.data)
             .catch(err => console.log(err));
+    },
+
+    getInstitutions() {
+        return axios.get(`${apiUrl}institutions`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
     }
 
 }

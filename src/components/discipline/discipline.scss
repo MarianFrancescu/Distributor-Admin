@@ -26,3 +26,13 @@
         flex-direction: column;
     }
 }
+
+@media screen and (max-width: 1200px) {
+    .discipline-container {
+        width: 100%;
+    }
+
+    .basic-details {
+        column-gap: 5em;
+    }
+}
