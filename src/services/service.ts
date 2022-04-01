@@ -27,6 +27,12 @@ export default {
         return axios.get(`${apiUrl}discipline/${disciplineID}`)
             .then(response => response.data)
             .catch(err => console.log(err));
+    },
+
+    deleteDiscipline(disciplineID: string) {
+        return axios.delete(`${apiUrl}deleteDiscipline/${disciplineID}`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
     }
 
 }

@@ -5,6 +5,7 @@ import './disciplines.scss';
 import DisciplineInterface from "../../models/discipline.interface";
 import { Navigate, useNavigate } from "react-router-dom";
 import DisciplineAddDialog from "../discipline-add-dialog/discipline-add-dialog";
+import DisciplineDeleteDialog from "../discipline-delete-dialog/discipline-delete-dialog";
 
 function createData(name: string, teacher: string,
     studyInstitution: string, faculty: string, department: string, studyYear: number) {
@@ -54,18 +55,26 @@ function Disciplines() {
         console.log('pressed', id);
     }
     const handleClickDelete = (id: string) => {
-        console.log('pressed', id);
+        setDisciplineFunction(id);
+        console.log('pressed', disciplineID);
+        handleOpenDeleteDialog();
     }
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+    const handleOpenDeleteDialog = () => setOpenDeleteDialog(true);
+    const handleCloseDeleteDialog = () => setOpenDeleteDialog(false);
+    const [disciplineID, setDisciplineID] = useState('');
+    const setDisciplineFunction = (id: string) => setDisciplineID(id);
 
     return (
         <div className="disciplines-container">
             <div className="disciplines-box">
                 <Button onClick={handleOpen}>Open modal</Button>
                 <DisciplineAddDialog openModal={open} closeModal={handleClose} />
+                <DisciplineDeleteDialog openModal={openDeleteDialog} disciplineID={disciplineID} closeModal={handleCloseDeleteDialog} />
                 <TableContainer component={Paper}>
                     <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
