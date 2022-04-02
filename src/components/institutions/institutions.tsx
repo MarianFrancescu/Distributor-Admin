@@ -4,6 +4,7 @@ import InstitutionAddDialog from "../institution-add-dialog/institution-add-dial
 import './institutions.scss';
 import service from "../../services/service";
 import Institution from "../../models/institution.interface";
+import { useNavigate } from "react-router-dom";
 
 const bull = (
     <Box
@@ -17,6 +18,7 @@ const bull = (
 function Institutions() {
 
     const [institutions, setInstitutions] = useState<any>([]);
+    const navigation = useNavigate();
 
     const getInstitutionsData = async () => {
         try {
@@ -36,6 +38,11 @@ function Institutions() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const handleClickEdit = (institution: string) => {
+        console.log(institution)
+        navigation(`/institution/${institution}`);
+    }
 
     return (
         <div className="institution-container">
@@ -63,7 +70,7 @@ function Institutions() {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Learn More</Button>
+                    <Button onClick={() => handleClickEdit(institution.studyInstitution as string)} size="small">Edit</Button>
                 </CardActions>
             </Card>
                 ))}

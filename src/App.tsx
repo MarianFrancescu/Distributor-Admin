@@ -9,6 +9,7 @@ import MyNavbar from './components/navbar/navbar';
 import Sidebar from './components/sidebar/sidebar';
 import Students from './components/students/students';
 import Discipline from './components/discipline/discipline';
+import InstitutionEdit from './components/institution-edit/institution-edit';
 
 export type GlobalContext = {
   isLoggedUser: boolean, 
@@ -37,6 +38,7 @@ function App() {
                 <Route path='/disciplines' element={<Disciplines/>}></Route>
                 <Route path='/discipline/:disciplineID' element={<Discipline/>}></Route>
                 <Route path='/institutions' element={<Institutions/>}></Route>
+                <Route path='/institution/:studyInstitution' element={<InstitutionEdit />}></Route>
             </Routes>
           </div>
         </BrowserRouter>
