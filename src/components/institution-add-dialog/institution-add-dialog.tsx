@@ -19,25 +19,9 @@ const style = {
 
 function InstitutionAddDialog({ openModal, closeModal }: any) {
 
-  // const [institutions, setInstitutions] = useState<any>([]);
-
-  // const getInstitutionsData = async () => {
-  //   try {
-  //     const response = await service.getInstitutions();
-  //     const institutionsResponse = response as InstitutionInterface[];
-  //     setInstitutions([...institutionsResponse]);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const addInstitution = (studyInstitution: InstitutionInterface) => {
     service.addInstitution(studyInstitution.studyInstitution, studyInstitution.faculties)
   }
-
-  // useEffect(() => {
-  //   getInstitutionsData();
-  // }, []);
 
   const initialValues = {
     studyInstitution: '',
@@ -51,7 +35,6 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
 
   return (
     <div>
-      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Dialog open={openModal} onClose={closeModal}>
         <DialogTitle>Add Institution</DialogTitle>
         <DialogContent>
@@ -60,9 +43,9 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
           </DialogContentText>
           <Formik initialValues={initialValues}
             onSubmit={(values, actions) => {
-              addInstitution(values)
+              addInstitution(values);
+              closeModal();
               console.log({ values, actions });
-              //    alert(JSON.stringify(values, null, 2));
               actions.setSubmitting(false);
             }}
           >

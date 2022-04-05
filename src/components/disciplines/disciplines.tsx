@@ -35,9 +35,18 @@ function Disciplines() {
         }
     }
 
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+    const handleOpenDeleteDialog = () => setOpenDeleteDialog(true);
+    const handleCloseDeleteDialog = () => setOpenDeleteDialog(false);
+    const [disciplineID, setDisciplineID] = useState('');
+    const setDisciplineFunction = (id: string) => setDisciplineID(id);
+
     useEffect(() => {
         getDisciplinesData();
-    }, []);
+    }, [open]);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);
@@ -54,18 +63,8 @@ function Disciplines() {
 
     const handleClickDelete = (id: string) => {
         setDisciplineFunction(id);
-        console.log('pressed', disciplineID);
         handleOpenDeleteDialog();
     }
-
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
-    const handleOpenDeleteDialog = () => setOpenDeleteDialog(true);
-    const handleCloseDeleteDialog = () => setOpenDeleteDialog(false);
-    const [disciplineID, setDisciplineID] = useState('');
-    const setDisciplineFunction = (id: string) => setDisciplineID(id);
 
     return (
         <div className="disciplines-container">
