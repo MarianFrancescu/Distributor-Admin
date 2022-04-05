@@ -1,11 +1,25 @@
-import { Button, Modal, Backdrop, Fade, Box, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, IconButton } from "@mui/material";
+import {
+  Button,
+  Modal,
+  Backdrop,
+  Fade,
+  Box,
+  Typography,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  IconButton,
+} from "@mui/material";
 import { Formik, Form, FieldArray, Field } from "formik";
 import React, { useEffect, useState } from "react";
-import './discipline-add-dialog.scss';
-import service from '../../services/service';
+import "./discipline-add-dialog.scss";
+import service from "../../services/service";
 import Institution from "../../models/institution.interface";
-import DeleteIcon from '@mui/icons-material/Delete';
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import Discipline from "../../models/discipline.interface";
 
 interface MyFormValues {
   name: string;
@@ -19,38 +33,35 @@ interface MyFormValues {
 }
 
 const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
 function DisciplineAddDialog({ openModal, closeModal }: any) {
-
-  // const [open, setOpen] = React.useState(openModal);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
-
   const [institutions, setInstitutions] = useState<any>([]);
 
-  const [institution, setInstitution] = useState(null);
-  const [faculty, setFaculty] = useState(null);
-  const [department, setDepartment] = useState('');
+  const [faculties, setFaculties] = useState<any>([]);
+  const [departments, setDepartments] = useState<any>([]);
 
   const getInstitutionsData = async () => {
     try {
       const response = await service.getInstitutions();
       const institutionsResponse = response as Institution[];
       setInstitutions([...institutionsResponse]);
-
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const addDiscipline = (discipline: Discipline) => {
+    service.addDisicpline(discipline);
   }
 
   useEffect(() => {
@@ -58,21 +69,27 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
   }, []);
 
   const handleInstitutionChange = (obj: any) => {
-    // setCountry(obj);
-    // setLangList(obj.languages);
-    // setLang(null);
-    console.log(obj.target.value)
-    setInstitution(obj.target.value);
+    const facultiess = institutions.find(
+      (i: Institution) => i.studyInstitution === obj.target.value
+    ).faculties;
+    setFaculties(facultiess);
   };
 
-  const initialValues: MyFormValues = {
+  const handleFacultyChange = (e: any) => {
+    const departmentss = faculties.find(
+      (f: any) => f.faculty === e.target.value
+    )?.departments;
+    setDepartments(departmentss);
+  };
+
+  const initialValues = {
     name: "",
     teacher: "",
     studyInstitution: "",
     faculty: "",
     department: "",
     studyYear: "",
-    maxNoOfStudentsPerTimetable: "",
+    maxNoOfStudentsPerTimetable: 0,
     timetable: [],
   };
 
@@ -88,20 +105,36 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
             initialValues={initialValues}
             onSubmit={(values, actions) => {
               console.log({ values, actions });
+              addDiscipline(values);
               closeModal();
-              //    alert(JSON.stringify(values, null, 2));
               actions.setSubmitting(false);
             }}
           >
-            {({ values }) => (
+            {({
+              values,
+              dirty,
+              isSubmitting,
+              handleChange,
+              handleSubmit,
+              handleReset,
+              setFieldValue,
+            }) => (
               <Form>
                 <div className="form-container">
                   <div className="basic-details">
                     <div className="trivial-details">
                       <label htmlFor="name">Name</label>
-                      <Field id="name" name="name" placeholder="Discipline Name" />
+                      <Field
+                        id="name"
+                        name="name"
+                        placeholder="Discipline Name"
+                      />
                       <label htmlFor="teacher">Teacher</label>
-                      <Field id="teacher" name="teacher" placeholder="Teacher" />
+                      <Field
+                        id="teacher"
+                        name="teacher"
+                        placeholder="Teacher"
+                      />
                       <label htmlFor="studyYear">Study year</label>
                       <Field
                         id="studyYear"
@@ -118,31 +151,63 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
                       />
                     </div>
                     <div className="institutional-details">
-                      <label htmlFor="studyInstitution">Study institution</label>
-                      <Field as="select"
+                      <label htmlFor="studyInstitution">
+                        Study institution
+                      </label>
+                      <Field
+                        as="select"
                         id="studyInstitution"
                         name="studyInstitution"
                         placeholder="Study institution"
-                        onChange={handleInstitutionChange}
+                        onChange={(e: any) => {
+                          handleInstitutionChange(e);
+                          handleChange(e);
+                        }}
                       >
-                        <option value=''>Select Institution (Just one)</option>
-                        {institutions.map((institution: Institution, index: number) => (
-                          <option key={index} value={institution.studyInstitution}>{institution.studyInstitution}</option>
-                        ))}
+                        <option value="">Select Institution (Just one)</option>
+                        {institutions.map(
+                          (institution: Institution, index: number) => (
+                            <option
+                              key={index}
+                              value={institution.studyInstitution}
+                            >
+                              {institution.studyInstitution}
+                            </option>
+                          )
+                        )}
                       </Field>
                       <label htmlFor="faculty">Faculty</label>
-                      <Field as="select" id="faculty" name="faculty" placeholder="Faculty">
-                        <option value=''>Select Faculty (Just one)</option>
-                        {institutions.find((i: string) => i === institution)?.faculties.map((faculty: any, index: number)=> (
-                          <option key={index} value={faculty.faculty}>{faculty.faculty}</option>
+                      <Field
+                        as="select"
+                        id="faculty"
+                        name="faculty"
+                        placeholder="Faculty"
+                        onChange={(e: any) => {
+                          handleFacultyChange(e);
+                          handleChange(e);
+                        }}
+                      >
+                        <option value="">Select Faculty (Just one)</option>
+                        {faculties?.map((faculty: any, index: number) => (
+                          <option key={index} value={faculty.faculty}>
+                            {faculty.faculty}
+                          </option>
                         ))}
                       </Field>
                       <label htmlFor="department">Department</label>
                       <Field
+                        as="select"
                         id="department"
                         name="department"
                         placeholder="Department"
-                      />
+                      >
+                        <option value="">Select Department (Just one)</option>
+                        {departments?.map((department: any, index: number) => (
+                          <option key={index} value={department}>
+                            {department}
+                          </option>
+                        ))}
+                      </Field>
                     </div>
                   </div>
                   <div className="timetable-container">
@@ -225,7 +290,7 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
         </DialogContent>
       </Dialog>
     </div>
-  )
+  );
 }
 
 export default DisciplineAddDialog;

@@ -1,4 +1,5 @@
 import axios from "axios";
+import Discipline from "../models/discipline.interface";
 const apiUrl = 'http://localhost:8080/';
 
 export default {
@@ -25,6 +26,12 @@ export default {
 
     getDiscipline(disciplineID: string) {
         return axios.get(`${apiUrl}discipline/${disciplineID}`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
+    },
+
+    addDisicpline(discipline: Discipline) {
+        return axios.post(`${apiUrl}addDiscipline`, discipline)
             .then(response => response.data)
             .catch(err => console.log(err));
     },
