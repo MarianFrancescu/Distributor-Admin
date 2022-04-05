@@ -100,8 +100,8 @@ function Disciplines() {
                                     <TableCell align="right">{row.department}</TableCell>
                                     <TableCell align="right">{row.studyYear}</TableCell>
                                     <TableCell align="right">
-                                        <button onClick={() => handleClickEdit(row._id as string)}>Edit</button>
-                                        <button onClick={() => handleClickDelete(row._id as string)}>Delete</button>
+                                        <Button size="small" variant="outlined" onClick={() => handleClickEdit(row._id as string)}>Edit</Button>
+                                        <Button size="small" variant="outlined" onClick={() => handleClickDelete(row._id as string)}>Delete</Button>
                                     </TableCell>
                                 </TableRow>
                             ))}

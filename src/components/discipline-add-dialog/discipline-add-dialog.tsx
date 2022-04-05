@@ -1,9 +1,10 @@
-import { Button, Modal, Backdrop, Fade, Box, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import { Button, Modal, Backdrop, Fade, Box, Typography, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, IconButton } from "@mui/material";
 import { Formik, Form, FieldArray, Field } from "formik";
 import React, { useEffect, useState } from "react";
 import './discipline-add-dialog.scss';
 import service from '../../services/service';
 import Institution from "../../models/institution.interface";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 interface MyFormValues {
@@ -189,23 +190,26 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
                           )} 
                       </div> */}
                                 <div className="col">
-                                  <button
+                                  <Button
+                                    size="small"
                                     type="button"
                                     className="secondary"
                                     onClick={() => remove(index)}
                                   >
-                                    X
-                                  </button>
+                                    <DeleteIcon />
+                                  </Button>
                                 </div>
                               </div>
                             ))}
-                          <button
+                          <Button
+                            size="small"
+                            variant="outlined"
                             type="button"
                             className="secondary"
                             onClick={() => push({ option: "" })}
                           >
                             Add Option
-                          </button>
+                          </Button>
                         </div>
                       )}
                     />

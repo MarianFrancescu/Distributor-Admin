@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import service from "../../services/service";
 import './institution-add-dialog.scss';
 import InstitutionInterface from '../../models/institution.interface';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -124,23 +125,26 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                                               />
                                             </div>
                                             <div className="col__inner">
-                                              <button
+                                              <Button
                                                 type="button"
                                                 className="secondary"
                                                 onClick={() => remove(index2)}
+                                                color="error"
                                               >
-                                                X
-                                              </button>
+                                                <DeleteIcon />
+                                              </Button>
                                             </div>
                                           </div>
                                         ))}
-                                      <button
+                                      <Button
+                                        size="small"
+                                        variant="outlined"
                                         type="button"
                                         className="secondary"
                                         onClick={() => push('')}
                                       >
                                         Add Department
-                                      </button>
+                                      </Button>
                                       {/* {errors.timetable &&
                           errors.timetable[index] &&
                           errors.timetable[index].email &&
@@ -154,23 +158,26 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                                   )}
                                 />
                                 <div className="col">
-                                  <button
+                                  <Button
                                     type="button"
                                     className="secondary"
                                     onClick={() => remove(index)}
+                                    color="error"
                                   >
-                                    X
-                                  </button>
+                                    <DeleteIcon />
+                                  </Button>
                                 </div>
                               </div>
                             ))}
-                          <button
+                          <Button
+                            size="small"
+                            variant="outlined"
                             type="button"
                             className="secondary"
                             onClick={() => push({ faculty: "" })}
                           >
                             Add Option1
-                          </button>
+                          </Button>
                         </div>
                       )}
                     />
