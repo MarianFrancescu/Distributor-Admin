@@ -39,6 +39,14 @@ export default {
         return axios.get(`${apiUrl}institutions`)
             .then(response => response.data)
             .catch(err => console.log(err));
+    },
+
+    addInstitution(studyInstitution: string, faculties: Array<any>) {
+        return axios.post(`${apiUrl}institution/add`, {
+            studyInstitution: studyInstitution,
+            faculties: faculties
+        }).then(response => response.data)
+          .catch(err => console.log(err));
     }
 
 }

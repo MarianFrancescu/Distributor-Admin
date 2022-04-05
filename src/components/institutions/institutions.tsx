@@ -23,8 +23,9 @@ function Institutions() {
     const getInstitutionsData = async () => {
         try {
             const response = await service.getInstitutions();
-            const institutionsReponse = response as Institution[];
-            setInstitutions([...institutionsReponse]);
+            const institutionsResponse = response as Institution[];
+            console.log(institutionsResponse);
+            setInstitutions([...institutionsResponse]);
 
         } catch (error) {
             console.log(error);
@@ -49,10 +50,10 @@ function Institutions() {
             <Button onClick={handleOpen}>Open modal</Button>
             <InstitutionAddDialog openModal={open} closeModal={handleClose} />
             {
-                institutions.map((institution: Institution) => (
+                institutions.map((institution: Institution, index: number) => (
             
                 
-            <Card sx={{ minWidth: 275, maxWidth: 450 }}>
+            <Card sx={{ minWidth: 275, maxWidth: 450 }} key={index}>
                 <CardContent>
                     <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         {institution?.studyInstitution}
