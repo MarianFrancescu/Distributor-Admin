@@ -104,7 +104,6 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
           <Formik
             initialValues={initialValues}
             onSubmit={(values, actions) => {
-              console.log({ values, actions });
               addDiscipline(values);
               closeModal();
               actions.setSubmitting(false);

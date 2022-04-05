@@ -46,7 +46,7 @@ function Discipline() {
     maxNoOfStudentsPerTimetable: discipline?.maxNoOfStudentsPerTimetable
       ? discipline?.maxNoOfStudentsPerTimetable
       : "",
-    timetable: [],
+    timetable: discipline?.timetable ? discipline?.timetable : [],
   };
   return discipline ? (
     <div className="discipline-container">
