@@ -24,7 +24,6 @@ function Institutions() {
         try {
             const response = await service.getInstitutions();
             const institutionsResponse = response as Institution[];
-            console.log(institutionsResponse);
             setInstitutions([...institutionsResponse]);
 
         } catch (error) {
