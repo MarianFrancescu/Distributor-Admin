@@ -12,7 +12,7 @@ interface MyFormValues {
   faculty: string;
   department: string;
   studyYear: string;
-  maxNoOfStudentsPerTimetable: string;
+  maxNoOfStudentsPerTimetable: number;
   timetable: Array<any>;
 }
 
@@ -29,6 +29,10 @@ function Discipline() {
       console.log(error);
     }
   };
+
+  const updateDisciplineData = (discipline: DisciplineInterface) => {
+    service.updateDiscipline(disciplineID as string, discipline);
+  }
 
   useEffect(() => {
     getDisciplineData();
@@ -56,6 +60,7 @@ function Discipline() {
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           console.log({ values, actions });
+          updateDisciplineData(values);
           //    alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
         }}

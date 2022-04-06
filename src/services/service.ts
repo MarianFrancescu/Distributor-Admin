@@ -36,6 +36,12 @@ export default {
             .catch(err => console.log(err));
     },
 
+    updateDiscipline(disciplineID: string, discipline: Discipline) {
+        return axios.patch(`${apiUrl}updateDiscipline/${disciplineID}`, discipline)
+            .then(response => response.data)
+            .catch(err => console.log(err));
+    },
+
     deleteDiscipline(disciplineID: string) {
         return axios.delete(`${apiUrl}deleteDiscipline/${disciplineID}`)
             .then(response => response.data)
