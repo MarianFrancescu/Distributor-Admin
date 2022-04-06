@@ -18,6 +18,12 @@ export default {
             .catch(err => console.log(err));
     },
 
+    deleteUser(userID: string) {
+        return axios.delete(`${apiUrl}deleteUser/${userID}`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
+    },
+
     getDisciplines() {
         return axios.get(`${apiUrl}disciplines`)
             .then(response => response.data)

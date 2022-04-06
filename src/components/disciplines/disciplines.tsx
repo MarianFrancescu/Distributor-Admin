@@ -73,7 +73,6 @@ function Disciplines() {
                     <Button className="dialog-button" onClick={handleOpen}>Open modal</Button>
                 </div>
                 <div className="disciplines-box">
-
                     <DisciplineAddDialog openModal={open} closeModal={handleClose} />
                     <DisciplineDeleteDialog openModal={openDeleteDialog} disciplineID={disciplineID} closeModal={handleCloseDeleteDialog} />
                     <TableContainer component={Paper}>
