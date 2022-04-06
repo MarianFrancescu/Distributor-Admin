@@ -13,6 +13,9 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    '@media (max-width: 1200px)': {
+        width: 250
+    }
   };
 
 function InstitutionDeleteDialog({openModal, closeModal, studyInstitution}: any) {
