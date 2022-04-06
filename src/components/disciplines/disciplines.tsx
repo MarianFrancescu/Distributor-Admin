@@ -46,7 +46,7 @@ function Disciplines() {
 
     useEffect(() => {
         getDisciplinesData();
-    }, [open]);
+    }, [open, openDeleteDialog]);
 
     const handleChangePage = (event: unknown, newPage: number) => {
         setPage(newPage);

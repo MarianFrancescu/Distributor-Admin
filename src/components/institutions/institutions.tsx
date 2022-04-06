@@ -5,6 +5,7 @@ import './institutions.scss';
 import service from "../../services/service";
 import Institution from "../../models/institution.interface";
 import { useNavigate } from "react-router-dom";
+import InstitutionDeleteDialog from "../institution-delete-dialog/institution-delete-dialog";
 
 const bull = (
     <Box
@@ -24,6 +25,7 @@ function Institutions() {
         try {
             const response = await service.getInstitutions();
             const institutionsResponse = response as Institution[];
+            console.log(response)
             setInstitutions([...institutionsResponse]);
 
         } catch (error) {
@@ -34,22 +36,31 @@ function Institutions() {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+    const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+    const handleOpenDeleteDialog = () => setOpenDeleteDialog(true);
+    const handleCloseDeleteDialog = () => setOpenDeleteDialog(false);
+    const [institutionName, setInstitutionName] = useState('');
+    const setInstitutionNameFunction = (id: string) => setInstitutionName(id);
 
     const handleClickEdit = (institution: string) => {
         console.log(institution)
         navigation(`/institution/${institution}`);
     }
 
+    const handleClickDelete = (name: string) => {
+        setInstitutionNameFunction(name);
+        handleOpenDeleteDialog();
+    }
+
     useEffect(() => {
         getInstitutionsData();
-    }, [open]);
-
-
+    }, [open, openDeleteDialog]);
 
     return (
         <div className="institution-container">
             <Button onClick={handleOpen}>Open modal</Button>
             <InstitutionAddDialog openModal={open} closeModal={handleClose} />
+            <InstitutionDeleteDialog openModal={openDeleteDialog} studyInstitution={institutionName} closeModal={handleCloseDeleteDialog} />
             <div className="institution-cards">
                 <div className="grid-cards">
                     {
@@ -73,6 +84,7 @@ function Institutions() {
                                 </CardContent>
                                 <CardActions>
                                     <Button onClick={() => handleClickEdit(institution.studyInstitution as string)} size="small">Edit</Button>
+                                    <Button onClick={() => handleClickDelete(institution.studyInstitution as string)}>Delete</Button>
                                 </CardActions>
                             </Card>
                         ))}

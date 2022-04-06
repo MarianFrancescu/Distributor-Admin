@@ -54,6 +54,12 @@ export default {
             faculties: faculties
         }).then(response => response.data)
           .catch(err => console.log(err));
+    },
+
+    deleteInstitution(institutionName: string) {
+        return axios.delete(`${apiUrl}institution/${institutionName}/delete`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
     }
 
 }
