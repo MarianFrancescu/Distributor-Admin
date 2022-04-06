@@ -25,7 +25,6 @@ function Institutions() {
         try {
             const response = await service.getInstitutions();
             const institutionsResponse = response as Institution[];
-            console.log(response)
             setInstitutions([...institutionsResponse]);
 
         } catch (error) {
@@ -43,7 +42,6 @@ function Institutions() {
     const setInstitutionNameFunction = (id: string) => setInstitutionName(id);
 
     const handleClickEdit = (institution: string) => {
-        console.log(institution)
         navigation(`/institution/${institution}`);
     }
 
@@ -58,7 +56,7 @@ function Institutions() {
 
     return (
         <div className="institution-container">
-            <Button onClick={handleOpen}>Open modal</Button>
+            <Button className="dialog-button" onClick={handleOpen}>Open modal</Button>
             <InstitutionAddDialog openModal={open} closeModal={handleClose} />
             <InstitutionDeleteDialog openModal={openDeleteDialog} studyInstitution={institutionName} closeModal={handleCloseDeleteDialog} />
             <div className="institution-cards">

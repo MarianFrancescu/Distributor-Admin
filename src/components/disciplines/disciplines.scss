@@ -3,6 +3,23 @@
     margin: auto;
 }
 
+.disciplines-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100vh;
+}
+
+.button__container {
+    display: flex;
+    justify-content: center;
+}
+
+.dialog-button {
+    position: absolute !important;
+    top: 80px;
+}
+
 @media screen and (max-width: 1200px) {
     .disciplines-container{
         width: 100%;

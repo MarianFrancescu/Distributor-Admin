@@ -68,55 +68,60 @@ function Disciplines() {
 
     return (
         <div className="disciplines-container">
-            <div className="disciplines-box">
-                <Button onClick={handleOpen}>Open modal</Button>
-                <DisciplineAddDialog openModal={open} closeModal={handleClose} />
-                <DisciplineDeleteDialog openModal={openDeleteDialog} disciplineID={disciplineID} closeModal={handleCloseDeleteDialog} />
-                <TableContainer component={Paper}>
-                    <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Discipline</TableCell>
-                                <TableCell align="right">Teacher</TableCell>
-                                <TableCell align="right">Study Institution</TableCell>
-                                <TableCell align="right">Faculty</TableCell>
-                                <TableCell align="right">Department</TableCell>
-                                <TableCell align="right">Study Year</TableCell>
-                                <TableCell align="right">Actions</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {disciplines.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: DisciplineInterface) => (
-                                <TableRow
-                                    key={row.name}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell align="right">{row.teacher}</TableCell>
-                                    <TableCell align="right">{row.studyInstitution}</TableCell>
-                                    <TableCell align="right">{row.faculty}</TableCell>
-                                    <TableCell align="right">{row.department}</TableCell>
-                                    <TableCell align="right">{row.studyYear}</TableCell>
-                                    <TableCell align="right">
-                                        <Button size="small" variant="outlined" onClick={() => handleClickEdit(row._id as string)}>Edit</Button>
-                                        <Button size="small" variant="outlined" onClick={() => handleClickDelete(row._id as string)}>Delete</Button>
-                                    </TableCell>
+            <div className="disciplines-card">
+                <div className="button__container">
+                    <Button className="dialog-button" onClick={handleOpen}>Open modal</Button>
+                </div>
+                <div className="disciplines-box">
+
+                    <DisciplineAddDialog openModal={open} closeModal={handleClose} />
+                    <DisciplineDeleteDialog openModal={openDeleteDialog} disciplineID={disciplineID} closeModal={handleCloseDeleteDialog} />
+                    <TableContainer component={Paper}>
+                        <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Discipline</TableCell>
+                                    <TableCell align="right">Teacher</TableCell>
+                                    <TableCell align="right">Study Institution</TableCell>
+                                    <TableCell align="right">Faculty</TableCell>
+                                    <TableCell align="right">Department</TableCell>
+                                    <TableCell align="right">Study Year</TableCell>
+                                    <TableCell align="right">Actions</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-                <TablePagination
-                    rowsPerPageOptions={[5, 10, 25]}
-                    component="div"
-                    count={disciplines.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
+                            </TableHead>
+                            <TableBody>
+                                {disciplines.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: DisciplineInterface) => (
+                                    <TableRow
+                                        key={row.name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell component="th" scope="row">
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell align="right">{row.teacher}</TableCell>
+                                        <TableCell align="right">{row.studyInstitution}</TableCell>
+                                        <TableCell align="right">{row.faculty}</TableCell>
+                                        <TableCell align="right">{row.department}</TableCell>
+                                        <TableCell align="right">{row.studyYear}</TableCell>
+                                        <TableCell align="right">
+                                            <Button size="small" variant="outlined" onClick={() => handleClickEdit(row._id as string)}>Edit</Button>
+                                            <Button size="small" variant="outlined" onClick={() => handleClickDelete(row._id as string)}>Delete</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        rowsPerPageOptions={[5, 10, 25]}
+                        component="div"
+                        count={disciplines.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                </div>
             </div>
         </div>
     );
