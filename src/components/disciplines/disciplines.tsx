@@ -12,12 +12,6 @@ function createData(name: string, teacher: string,
     return { name, teacher, studyInstitution, faculty, department, studyYear };
 }
 
-const rows = [
-    createData('Modelare si Simulare', 'Holban Stefan', 'Universitatea Politehnica Timisoara', 'Automatica si Calculatoare', 'Calculatoare si Tehnologia Informatiei', 2),
-    createData('Matematici Speciale', 'Nicu', 'Universitatea Politehnica Timisoara', 'Automatica si Calculatoare', 'Calculatoare si Tehnologia Informatiei', 1),
-    createData('Analiza Algoritmi', 'Capricescu', 'Universitatea de Vest Timisoara', 'Automatica', 'Calculatoare', 2),
-];
-
 function Disciplines() {
     const [disciplines, setDisciplines] = useState<any>([]);
     const [page, setPage] = useState(0);
