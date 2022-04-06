@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Menu, MenuItem, ProSidebar, SidebarContent, SidebarFooter, SidebarHeader } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 import './sidebar.scss';
@@ -6,11 +6,14 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import LibraryBooksRoundedIcon from '@mui/icons-material/LibraryBooksRounded';
 import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded';
+import { MyContext } from "../../App";
 
 function Sidebar({menuOpen, setMenuOpen}: any) {
 
-    return(
-        <ProSidebar width={200} className="side" collapsed={!menuOpen}>
+    const {isLoggedUser, setUserStatus} = useContext(MyContext);
+
+    return (
+        <ProSidebar width={200} className={"side " + (!isLoggedUser && 'inactive')} collapsed={!menuOpen}>
             <SidebarHeader className="basic-container header" onClick={()=>setMenuOpen(!menuOpen)}>
                 {
                     menuOpen ? 'Dashboard' : <DashboardRoundedIcon/>

@@ -1,5 +1,11 @@
 $sidebar-bg-color: #0c1618ff !default;
 $highlight-color: #d1ac00ff !default;
+$sidebar-color: #faf4d3ff !default;
+
+.inactive {
+    pointer-events: none;  
+}
+
 @import '~react-pro-sidebar/dist/scss/styles.scss';
 
 //bg #00344d
