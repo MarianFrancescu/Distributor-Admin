@@ -10,6 +10,7 @@ import Sidebar from './components/sidebar/sidebar';
 import Students from './components/students/students';
 import Discipline from './components/discipline/discipline';
 import InstitutionEdit from './components/institution-edit/institution-edit';
+import Student from './components/student/student';
 
 export type GlobalContext = {
   isLoggedUser: boolean, 
@@ -35,6 +36,7 @@ function App() {
                 <Route path='/dashboard' element={<Dashboard/>}></Route>
                 <Route path='/login' element={<Login/>}></Route>
                 <Route path='/students' element={<Students/>}></Route>
+                <Route path='/student/:userID' element={<Student/>}></Route>
                 <Route path='/disciplines' element={<Disciplines/>}></Route>
                 <Route path='/discipline/:disciplineID' element={<Discipline/>}></Route>
                 <Route path='/institutions' element={<Institutions/>}></Route>

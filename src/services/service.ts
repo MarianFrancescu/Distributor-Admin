@@ -1,5 +1,6 @@
 import axios from "axios";
 import Discipline from "../models/discipline.interface";
+import User from "../models/user.interface";
 const apiUrl = 'http://localhost:8080/';
 
 export default {
@@ -14,6 +15,18 @@ export default {
 
     getUsers() {
         return axios.get(`${apiUrl}users`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
+    },
+
+    getUser(userID: string) {
+        return axios.get(`${apiUrl}user/${userID}`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
+    },
+
+    updateUser(userID: string, user: User) {
+        return axios.patch(`${apiUrl}updateUser/${userID}`, user)
             .then(response => response.data)
             .catch(err => console.log(err));
     },

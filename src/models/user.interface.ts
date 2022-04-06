@@ -1,14 +1,14 @@
 export default interface User {
-    _id: string;
-    email: string;
+    _id?: string;
+    email?: string;
     firstName: string;
     lastName: string;
-    password: string;
+    password?: string;
     registrationNumber: string;
     studyInstitution: string;
     faculty: string;
     department: string;
     studyYear: string;
-    created: Date;
+    created?: Date;
     role: string;
   }
