@@ -10,14 +10,22 @@
     height: 100vh;
 }
 
+.search-box {
+    display: flex;
+    justify-content: space-between;
+}
+
 .button__container {
     display: flex;
     justify-content: center;
 }
 
-.dialog-button {
-    position: absolute !important;
-    top: 80px;
+.actions-wrapper {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 
 @media screen and (max-width: 1200px) {

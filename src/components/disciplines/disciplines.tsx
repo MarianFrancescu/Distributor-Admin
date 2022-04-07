@@ -69,31 +69,31 @@ function Disciplines() {
     return (
         <div className="disciplines-container">
             <div className="disciplines-card">
-                <div className="button__container">
-                    <Button className="dialog-button" onClick={handleOpen}>Open modal</Button>
-                </div>
                 <div className="disciplines-box">
                     <DisciplineAddDialog openModal={open} closeModal={handleClose} />
                     <DisciplineDeleteDialog openModal={openDeleteDialog} disciplineID={disciplineID} closeModal={handleCloseDeleteDialog} />
-                    <label htmlFor="search">
-                        Search by discipline:
-                        <input id="search" type="text" onChange={handleSearch} />
-                    </label>
+                    <div className="search-box">
+                        <label htmlFor="search">
+                            Search by discipline
+                            <input id="search" type="text" onChange={handleSearch} />
+                        </label>
+                    <Button className="button__container" onClick={handleOpen}>Add discipline</Button>
+                    </div>
                     <TableContainer component={Paper}>
                         <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Discipline</TableCell>
-                                    <TableCell align="right">Teacher</TableCell>
-                                    <TableCell align="right">Study Institution</TableCell>
-                                    <TableCell align="right">Faculty</TableCell>
-                                    <TableCell align="right">Department</TableCell>
-                                    <TableCell align="right">Study Year</TableCell>
-                                    <TableCell align="right">Actions</TableCell>
+                                    <TableCell align="left">Teacher</TableCell>
+                                    <TableCell align="left">Study Institution</TableCell>
+                                    <TableCell align="left">Faculty</TableCell>
+                                    <TableCell align="left">Department</TableCell>
+                                    <TableCell align="left">Study Year</TableCell>
+                                    <TableCell align="left">Actions</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {disciplines.filter((discipline: DisciplineInterface) => !search || 
+                                {disciplines.filter((discipline: DisciplineInterface) => !search ||
                                     discipline?.name?.toString().toLowerCase().includes(search.toString().toLowerCase())
                                 ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: DisciplineInterface) => (
                                     <TableRow
@@ -103,14 +103,16 @@ function Disciplines() {
                                         <TableCell component="th" scope="row">
                                             {row.name}
                                         </TableCell>
-                                        <TableCell align="right">{row.teacher}</TableCell>
-                                        <TableCell align="right">{row.studyInstitution}</TableCell>
-                                        <TableCell align="right">{row.faculty}</TableCell>
-                                        <TableCell align="right">{row.department}</TableCell>
-                                        <TableCell align="right">{row.studyYear}</TableCell>
-                                        <TableCell align="right">
+                                        <TableCell align="left">{row.teacher}</TableCell>
+                                        <TableCell align="left">{row.studyInstitution}</TableCell>
+                                        <TableCell align="left">{row.faculty}</TableCell>
+                                        <TableCell align="left">{row.department}</TableCell>
+                                        <TableCell align="left">{row.studyYear}</TableCell>
+                                        <TableCell align="left">
+                                            <div className="actions-wrapper">
                                             <Button size="small" variant="outlined" onClick={() => handleClickEdit(row._id as string)}>Edit</Button>
                                             <Button size="small" variant="outlined" onClick={() => handleClickDelete(row._id as string)}>Delete</Button>
+                                            </div>
                                         </TableCell>
                                     </TableRow>
                                 ))}

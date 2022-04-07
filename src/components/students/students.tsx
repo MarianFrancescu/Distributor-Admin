@@ -5,6 +5,9 @@ import service from '../../services/service';
 import UserInterface from '../../models/user.interface';
 import { useNavigate } from "react-router-dom";
 import StudentDeleteDialog from "../student-delete-dialog/student-delete-dialog";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import PersonIcon from '@mui/icons-material/Person';
 
 function Students() {
     const [students, setStudents] = useState<any>([]);
@@ -56,21 +59,22 @@ function Students() {
     return (
         <div className="students-container">
             <div className="students-box">
-            <StudentDeleteDialog openModal={openDeleteDialog} userID={userID} closeModal={handleCloseDeleteDialog} />
+                <StudentDeleteDialog openModal={openDeleteDialog} userID={userID} closeModal={handleCloseDeleteDialog} />
                 <TableContainer component={Paper}>
                     <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>FirstName</TableCell>
-                                <TableCell align="right">LastName</TableCell>
-                                <TableCell align="right">Registration Number</TableCell>
-                                <TableCell align="right">Institution</TableCell>
-                                <TableCell align="right">Faculty</TableCell>
-                                <TableCell align="right">Actions</TableCell>
+                                <TableCell align="center">LastName</TableCell>
+                                <TableCell align="center">Registration Number</TableCell>
+                                <TableCell align="center">Institution</TableCell>
+                                <TableCell align="center">Faculty</TableCell>
+                                <TableCell align="center">Admin</TableCell>
+                                <TableCell align="center">Actions</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {students.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: UserInterface) => ( 
+                            {students.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: UserInterface) => (
                                 <TableRow
                                     key={row.firstName}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -78,28 +82,34 @@ function Students() {
                                     <TableCell component="th" scope="row">
                                         {row.firstName}
                                     </TableCell>
-                                    <TableCell align="right">{row.lastName}</TableCell>
-                                    <TableCell align="right">{row.registrationNumber}</TableCell>
-                                    <TableCell align="right">{row.studyInstitution}</TableCell>
-                                    <TableCell align="right">{row.faculty}</TableCell>
-                                    <TableCell align="right">
+                                    <TableCell align="center">{row.lastName}</TableCell>
+                                    <TableCell align="center">{row.registrationNumber}</TableCell>
+                                    <TableCell align="center">{row.studyInstitution}</TableCell>
+                                    <TableCell align="center">{row.faculty}</TableCell>
+                                    <TableCell align="center">{row.role === 'superAdmin' ? <SupervisedUserCircleIcon /> : (
+                                        row.role === 'admin' ? <AdminPanelSettingsIcon /> : <PersonIcon />
+                                    )
+                                    }</TableCell>
+                                    <TableCell align="center">
+                                        <div className="actions-wrapper">
                                             <Button size="small" variant="outlined" onClick={() => handleClickEdit(row._id as string)}>Edit</Button>
                                             <Button size="small" variant="outlined" onClick={() => handleClickDelete(row._id as string)}>Delete</Button>
-                                        </TableCell>
+                                        </div>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
                 <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        count={students.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
+                    rowsPerPageOptions={[5, 10, 25]}
+                    component="div"
+                    count={students.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
             </div>
         </div>
     );

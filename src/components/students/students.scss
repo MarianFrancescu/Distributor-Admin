@@ -4,9 +4,18 @@
 }
 
 .students-box {
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
+}
+
+.actions-wrapper {
+    display: flex;
+    align-items: stretch;
     justify-content: center;
+    align-content: center;
+    flex-direction: column;
 }
 
 @media screen and (max-width: 1200px) {
