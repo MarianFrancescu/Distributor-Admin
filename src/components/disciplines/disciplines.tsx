@@ -18,6 +18,12 @@ function Disciplines() {
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const navigation = useNavigate();
 
+    const [search, setSearch] = useState('');
+
+    const handleSearch = (event: any) => {
+        setSearch(event.target.value);
+    };
+
     const getDisciplinesData = async () => {
         try {
             const response = await service.getDisciplines();
@@ -69,6 +75,10 @@ function Disciplines() {
                 <div className="disciplines-box">
                     <DisciplineAddDialog openModal={open} closeModal={handleClose} />
                     <DisciplineDeleteDialog openModal={openDeleteDialog} disciplineID={disciplineID} closeModal={handleCloseDeleteDialog} />
+                    <label htmlFor="search">
+                        Search by discipline:
+                        <input id="search" type="text" onChange={handleSearch} />
+                    </label>
                     <TableContainer component={Paper}>
                         <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
@@ -83,7 +93,9 @@ function Disciplines() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {disciplines.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: DisciplineInterface) => (
+                                {disciplines.filter((discipline: DisciplineInterface) => !search || 
+                                    discipline?.name?.toString().toLowerCase().includes(search.toString().toLowerCase())
+                                ).slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row: DisciplineInterface) => (
                                     <TableRow
                                         key={row.name}
                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
