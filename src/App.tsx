@@ -40,7 +40,7 @@ function App() {
                 <Route path='/disciplines' element={<Disciplines/>}></Route>
                 <Route path='/discipline/:disciplineID' element={<Discipline/>}></Route>
                 <Route path='/institutions' element={<Institutions/>}></Route>
-                <Route path='/institution/:studyInstitution' element={<InstitutionEdit />}></Route>
+                <Route path='/institution/:institutionID' element={<InstitutionEdit />}></Route>
             </Routes>
           </div>
         </BrowserRouter>

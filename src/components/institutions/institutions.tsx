@@ -41,8 +41,8 @@ function Institutions() {
     const [institutionName, setInstitutionName] = useState('');
     const setInstitutionNameFunction = (id: string) => setInstitutionName(id);
 
-    const handleClickEdit = (institution: string) => {
-        navigation(`/institution/${institution}`);
+    const handleClickEdit = (institutionID: string) => {
+        navigation(`/institution/${institutionID}`);
     }
 
     const handleClickDelete = (name: string) => {
@@ -56,32 +56,29 @@ function Institutions() {
 
     return (
         <div className="institution-container">
-            <Button className="dialog-button" onClick={handleOpen}>Open modal</Button>
+            <Button className="dialog-button" onClick={handleOpen}>Add institution</Button>
             <InstitutionAddDialog openModal={open} closeModal={handleClose} />
             <InstitutionDeleteDialog openModal={openDeleteDialog} studyInstitution={institutionName} closeModal={handleCloseDeleteDialog} />
             <div className="institution-cards">
                 <div className="grid-cards">
                     {
                         institutions.map((institution: Institution, index: number) => (
-                            <Card sx={{ minWidth: 275, maxWidth: 450 }} key={index}>
+                            <Card sx={{ minWidth: 275, maxWidth: 350 }} key={index}>
                                 <CardContent>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                    <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
                                         {institution?.studyInstitution}
                                     </Typography>
-                                    <Typography variant="h5" component="div">
-                                        be{bull}nev{bull}o{bull}lent
-                                    </Typography>
                                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                        fdsfds
+                                        No. of faculties: {institution.faculties.length}
                                     </Typography>
                                     <Typography variant="body2">
                                         well meaning and kindly.
                                         <br />
-                                        {'"a benevolent smile"'}
+                                        {/* {'"a benevolent smile"'} */}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button onClick={() => handleClickEdit(institution.studyInstitution as string)} size="small">Edit</Button>
+                                    <Button onClick={() => handleClickEdit(institution._id as string)} size="small">Edit</Button>
                                     <Button onClick={() => handleClickDelete(institution.studyInstitution as string)}>Delete</Button>
                                 </CardActions>
                             </Card>

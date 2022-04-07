@@ -1,5 +1,6 @@
 import axios from "axios";
 import Discipline from "../models/discipline.interface";
+import Institution from "../models/institution.interface";
 import User from "../models/user.interface";
 const apiUrl = 'http://localhost:8080/';
 
@@ -73,12 +74,24 @@ export default {
             .catch(err => console.log(err));
     },
 
+    getInstitution(id: string) {
+        return axios.get(`${apiUrl}institution/${id}`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
+    },
+
     addInstitution(studyInstitution: string, faculties: Array<any>) {
         return axios.post(`${apiUrl}institution/add`, {
             studyInstitution: studyInstitution,
             faculties: faculties
         }).then(response => response.data)
           .catch(err => console.log(err));
+    },
+
+    updateInstitution(institutionID: string, institution: Institution) {
+        return axios.patch(`${apiUrl}institution/${institutionID}/update`, institution)
+            .then(response => response.data)
+            .catch(err => console.log(err));
     },
 
     deleteInstitution(institutionName: string) {

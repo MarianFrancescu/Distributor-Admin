@@ -46,7 +46,6 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
             onSubmit={(values, actions) => {
               addInstitution(values);
               closeModal();
-              console.log({ values, actions });
               actions.setSubmitting(false);
             }}
           >
@@ -176,7 +175,7 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                             className="secondary"
                             onClick={() => push({ faculty: "" })}
                           >
-                            Add Option1
+                            Add Faculty
                           </Button>
                         </div>
                       )}
