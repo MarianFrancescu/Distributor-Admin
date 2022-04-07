@@ -11,11 +11,23 @@ import Students from './components/students/students';
 import Discipline from './components/discipline/discipline';
 import InstitutionEdit from './components/institution-edit/institution-edit';
 import Student from './components/student/student';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 export type GlobalContext = {
   isLoggedUser: boolean, 
   setUserStatus: (u: boolean) => void
 };
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#004643ff'
+    },
+    secondary: {
+      main: '#E33E7F'
+    }
+  }
+});
 
 export const MyContext = React.createContext<GlobalContext>({isLoggedUser: false, setUserStatus: () => {}});
 
@@ -27,6 +39,7 @@ function App() {
   return (
     <div className='App'>
       <MyContext.Provider value={{isLoggedUser, setUserStatus}}>
+      <ThemeProvider theme={theme}>
         <BrowserRouter>
           <MyNavbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
           <Sidebar className="sidebar" menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
@@ -44,6 +57,7 @@ function App() {
             </Routes>
           </div>
         </BrowserRouter>
+        </ThemeProvider >
       </MyContext.Provider>
     </div>
   );

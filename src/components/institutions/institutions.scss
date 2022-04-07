@@ -46,6 +46,12 @@ background: #555;
 
 @media screen and(max-width: 1200px){
   .grid-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and(max-width: 768px){
+  .grid-cards {
     grid-template-columns: 1fr;
   }
 }
