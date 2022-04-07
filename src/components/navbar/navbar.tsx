@@ -13,8 +13,12 @@ function MyNavbar({menuOpen, setMenuOpen}: any) {
         setUserStatus(false);
     }
 
+    const getUserToken = () => {
+        return localStorage.getItem('admin-token') ? true : false;
+    } 
+
     const loggedUserView = () => {
-        if(isLoggedUser) {
+        if(isLoggedUser || getUserToken()) {
             return (
                 <li className="link">
                     <Link className="text" to='/login' onClick={eraseToken}>Logout</Link>

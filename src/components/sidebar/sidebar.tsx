@@ -12,8 +12,12 @@ function Sidebar({menuOpen, setMenuOpen}: any) {
 
     const {isLoggedUser, setUserStatus} = useContext(MyContext);
 
+    const getUserToken = () => {
+        return localStorage.getItem('admin-token') ? true : false;
+    } 
+
     return (
-        <ProSidebar width={200} className={"side " + (!isLoggedUser && 'inactive')} collapsed={!menuOpen}>
+        <ProSidebar width={200} className={"side " + (!(isLoggedUser || getUserToken()) && 'inactive')} collapsed={!menuOpen}>
             <SidebarHeader className="basic-container header" onClick={()=>setMenuOpen(!menuOpen)}>
                 {
                     menuOpen ? 'Dashboard' : <DashboardRoundedIcon/>
