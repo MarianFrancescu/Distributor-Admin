@@ -17,6 +17,11 @@
   overflow-y: auto;
 }
 
+.actions-card {
+  display: flex;
+  justify-content: space-between;
+}
+
 ::-webkit-scrollbar {
     width: 10px;
   }

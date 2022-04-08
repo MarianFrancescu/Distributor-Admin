@@ -56,7 +56,7 @@ function Institutions() {
 
     return (
         <div className="institution-container">
-            <Button className="dialog-button" onClick={handleOpen}>Add institution</Button>
+            <Button variant="contained" className="dialog-button" onClick={handleOpen}>Add institution</Button>
             <InstitutionAddDialog openModal={open} closeModal={handleClose} />
             <InstitutionDeleteDialog openModal={openDeleteDialog} studyInstitution={institutionName} closeModal={handleCloseDeleteDialog} />
             <div className="institution-cards">
@@ -77,7 +77,7 @@ function Institutions() {
                                         {/* {'"a benevolent smile"'} */}
                                     </Typography>
                                 </CardContent>
-                                <CardActions>
+                                <CardActions className="actions-card">
                                     <Button onClick={() => handleClickEdit(institution._id as string)} size="small">Edit</Button>
                                     <Button onClick={() => handleClickDelete(institution.studyInstitution as string)}>Delete</Button>
                                 </CardActions>
