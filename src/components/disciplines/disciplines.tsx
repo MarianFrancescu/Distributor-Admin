@@ -79,7 +79,7 @@ function Disciplines() {
                         </label>
                     <Button className="button__container" onClick={handleOpen}>Add discipline</Button>
                     </div>
-                    <TableContainer component={Paper}>
+                    <TableContainer className="table-container" component={Paper}>
                         <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead>
                                 <TableRow>

@@ -1,13 +1,23 @@
 .disciplines-container {
     width: 90%;
-    margin: auto;
+    margin-top: auto;
 }
 
 .disciplines-card {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: 100vh;
+    height: calc(100vh - 64px);
+}
+
+.disciplines-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.table-container { 
+    flex: 1;
 }
 
 .search-box {
