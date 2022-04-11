@@ -1,4 +1,4 @@
-import { Paper, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination, Button } from "@mui/material";
+import { Paper, Table, TableContainer, TableHead, TableRow, TableCell, TableBody, TablePagination, Button, Tooltip, IconButton } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import './students.scss';
 import service from '../../services/service';
@@ -69,7 +69,7 @@ function Students() {
                                 <TableCell align="center">Registration Number</TableCell>
                                 <TableCell align="center">Institution</TableCell>
                                 <TableCell align="center">Faculty</TableCell>
-                                <TableCell align="center">Admin</TableCell>
+                                <TableCell align="center">Role</TableCell>
                                 <TableCell align="center">Actions</TableCell>
                             </TableRow>
                         </TableHead>
@@ -86,10 +86,32 @@ function Students() {
                                     <TableCell align="center">{row.registrationNumber}</TableCell>
                                     <TableCell align="center">{row.studyInstitution}</TableCell>
                                     <TableCell align="center">{row.faculty}</TableCell>
-                                    <TableCell align="center">{row.role === 'superAdmin' ? <SupervisedUserCircleIcon /> : (
-                                        row.role === 'admin' ? <AdminPanelSettingsIcon /> : <PersonIcon />
-                                    )
-                                    }</TableCell>
+                                    <TableCell align="center">
+                                        {row.role === 'superAdmin' ?
+                                            (
+                                                <Tooltip title="superAdmin">
+                                                    <IconButton>
+                                                        <SupervisedUserCircleIcon />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            )
+                                            : (
+                                                row.role === 'admin' ? (
+                                                    <Tooltip title="admin">
+                                                        <IconButton>
+                                                            <AdminPanelSettingsIcon />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                ) :
+                                                    (
+                                                        <Tooltip title="basic">
+                                                            <IconButton>
+                                                                <PersonIcon />
+                                                            </IconButton>
+                                                        </Tooltip>
+                                                    )
+                                            )}
+                                    </TableCell>
                                     <TableCell align="center">
                                         <div className="actions-wrapper">
                                             <Button size="small" variant="outlined" onClick={() => handleClickEdit(row._id as string)}>Edit</Button>
