@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import './dashboard.scss';
 import service from "../../services/service";
-import User from "../../models/user.interface";
-import Institution from "../../models/institution.interface";
-import Discipline from "../../models/discipline.interface";
 
 function Dashboard() {
 
@@ -11,41 +8,40 @@ function Dashboard() {
     const [institutionsLength, setInstitutionsLength] = useState(0);
     const [disciplinesLength, setDisciplinesLength] = useState(0);
 
-    const getUsersData = async () => {
-        try{
-            const response = await service.getUsers();
-            const usersResponse = response as User[];
-            const usersLength = usersResponse.length;
-            setUsersLength(usersLength);
+    const getUsersLength = async () => {
+        try {
+            const response = await service.getNumberOfUsers();
+            const lengthResponse = response;
+            setUsersLength(lengthResponse);
         } catch(err) {
-            (console.log(err))
+            console.log(err);
         }
     }
 
-    const getInstitutionsData = async () => {
-        try{
-            const response = await service.getInstitutions();
-            const institutionsResponse = response as Institution[];
-            setInstitutionsLength(institutionsResponse.length);
+    const getDisciplinesLength = async () => {
+        try {
+            const response = await service.getNumberOfDisciplines();
+            const lengthResponse = response;
+            setDisciplinesLength(lengthResponse);
         } catch(err) {
-            (console.log(err))
+            console.log(err);
         }
     }
 
-    const getDisciplinesData = async () => {
-        try{
-            const response = await service.getDisciplines();
-            const disciplinesResponse = response as Discipline[];
-            setDisciplinesLength(disciplinesResponse.length);
+    const getInstitutionsLength = async () => {
+        try {
+            const response = await service.getNumberOfInstitutions();
+            const lengthResponse = response;
+            setInstitutionsLength(lengthResponse);
         } catch(err) {
-            (console.log(err))
+            console.log(err);
         }
     }
 
     useEffect(() => {
-        getUsersData();
-        getInstitutionsData();
-        getDisciplinesData();
+        getUsersLength();
+        getDisciplinesLength();
+        getInstitutionsLength();
     }, []);
 
     return(

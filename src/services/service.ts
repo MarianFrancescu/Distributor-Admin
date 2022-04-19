@@ -38,6 +38,12 @@ export default {
             .catch(err => console.log(err));
     },
 
+    getNumberOfUsers() {
+        return axios.get(`${apiUrl}users/length`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
+    },
+
     getDisciplines() {
         return axios.get(`${apiUrl}disciplines`)
             .then(response => response.data)
@@ -64,6 +70,12 @@ export default {
 
     deleteDiscipline(disciplineID: string) {
         return axios.delete(`${apiUrl}deleteDiscipline/${disciplineID}`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
+    },
+
+    getNumberOfDisciplines() {
+        return axios.get(`${apiUrl}disciplines/length`)
             .then(response => response.data)
             .catch(err => console.log(err));
     },
@@ -98,6 +110,12 @@ export default {
         return axios.delete(`${apiUrl}institution/${institutionName}/delete`)
             .then(response => response.data)
             .catch(err => console.log(err));
-    }
+    },
+
+    getNumberOfInstitutions() {
+        return axios.get(`${apiUrl}institutions/length`)
+            .then(response => response.data)
+            .catch(err => console.log(err));
+    },
 
 }
