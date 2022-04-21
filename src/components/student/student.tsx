@@ -1,4 +1,4 @@
-import { FormControlLabel, Switch } from "@mui/material";
+import { Button, FormControlLabel, Switch } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -91,162 +91,166 @@ function Student() {
 
     return user ? (
         <div className="student-container">
-            <h1>Edit student details</h1>
+            <div className="student-wrapper">
+                <h1>Edit student details</h1>
 
-            <Formik
-                enableReinitialize
-                initialValues={initialValues}
-                onSubmit={(values, actions) => {
-                    console.log({ values, actions });
-                    updateUserData(values);
-                    //    alert(JSON.stringify(values, null, 2));
-                    actions.setSubmitting(false);
-                }}
-            >
-                {({ values,
-                    dirty,
-                    isSubmitting,
-                    handleChange,
-                    handleSubmit,
-                    handleReset,
-                    setFieldValue, }) => (
-                    <Form>
-                        <div className="form-container">
-                            <div className="basic-details">
-                                <div className="trivial-details">
-                                    <label htmlFor="firstName">First Name</label>
-                                    <Field className="field" id="firstName" name="firstName" placeholder="First Name" />
-                                    <label htmlFor="lastName">Last Name</label>
-                                    <Field className="field" id="lastName" name="lastName" placeholder="Last Name" />
-                                    <label htmlFor="studyYear">Study year</label>
-                                    <Field
-                                        id="studyYear"
-                                        className="field"
-                                        name="studyYear"
-                                        placeholder="Study year"
-                                    />
-                                    <label htmlFor="registrationNumber">Registration number</label>
-                                    <Field
-                                        id="registrationNumber"
-                                        className="field"
-                                        name="registrationNumber"
-                                        placeholder="Registration number"
-                                    />
-                                </div>
-                                <div className="institutional-details">
-                                    <FormControlLabel
-                                        control={<Switch checked={checked}
-                                            onChange={handleSwitchChange}
-                                            inputProps={{ 'aria-label': 'controlled' }} />}
-                                        label="Edit institutional details?"
-                                    />
-                                    {
-                                        !checked ? (<div className="institutions-box">
-                                            <label htmlFor="studyInstitution">Study institution</label>
-                                            <Field
-                                                className="field"
-                                                disabled={!checked}
-                                                id="studyInstitution"
-                                                name="studyInstitution"
-                                                placeholder="Study institution"
-                                            />
-                                            <label htmlFor="faculty">Faculty</label>
-                                            <Field disabled={!checked} id="faculty" name="faculty" placeholder="Faculty" className="field" />
-                                            <label htmlFor="department">Department</label>
-                                            <Field
-                                                disabled={!checked}
-                                                id="department"
-                                                name="department"
-                                                placeholder="Department"
-                                                className="field"
-                                            />
-                                        </div>) :
-                                            (<div className="institutions-box">
-
+                <Formik
+                    enableReinitialize
+                    initialValues={initialValues}
+                    onSubmit={(values, actions) => {
+                        console.log({ values, actions });
+                        updateUserData(values);
+                        //    alert(JSON.stringify(values, null, 2));
+                        actions.setSubmitting(false);
+                    }}
+                >
+                    {({ values,
+                        dirty,
+                        isSubmitting,
+                        handleChange,
+                        handleSubmit,
+                        handleReset,
+                        setFieldValue, }) => (
+                        <Form>
+                            <div className="form-container__student">
+                                <div className="basic-details">
+                                    <div className="trivial-details">
+                                        <label htmlFor="firstName">First Name</label>
+                                        <Field className="field" id="firstName" name="firstName" placeholder="First Name" />
+                                        <label htmlFor="lastName">Last Name</label>
+                                        <Field className="field" id="lastName" name="lastName" placeholder="Last Name" />
+                                        <label htmlFor="studyYear">Study year</label>
+                                        <Field
+                                            id="studyYear"
+                                            className="field"
+                                            name="studyYear"
+                                            placeholder="Study year"
+                                        />
+                                        <label htmlFor="registrationNumber">Registration number</label>
+                                        <Field
+                                            id="registrationNumber"
+                                            className="field"
+                                            name="registrationNumber"
+                                            placeholder="Registration number"
+                                        />
+                                    </div>
+                                    <div className="institutional-details">
+                                        <FormControlLabel
+                                            control={<Switch checked={checked}
+                                                onChange={handleSwitchChange}
+                                                inputProps={{ 'aria-label': 'controlled' }} />}
+                                            label="Edit institutional details?"
+                                        />
+                                        {
+                                            !checked ? (<div className="institutions-box">
                                                 <label htmlFor="studyInstitution">Study institution</label>
                                                 <Field
-                                                    // initialValues={values.studyInstitution}
-                                                    as='select'
+                                                    className="field"
+                                                    disabled={!checked}
                                                     id="studyInstitution"
                                                     name="studyInstitution"
-                                                    className="field"
-                                                    onChange={(e: any) => {
-                                                        handleInstitutionChange(e);
-                                                        handleChange(e);
-                                                    }}
-                                                >
-                                                    <option value="">Select Institution (Just one)</option>
-                                                    {institutions?.map(
-                                                        (institution: Institution, index: number) => (
-                                                            <option
-                                                                key={index}
-                                                                value={institution.studyInstitution}
-                                                            >
-                                                                {institution.studyInstitution}
-                                                            </option>
-                                                        )
-                                                    )}
-                                                </Field>
+                                                    placeholder="Study institution"
+                                                />
                                                 <label htmlFor="faculty">Faculty</label>
-                                                <Field
-                                                    // initialValues={values.faculty}
-                                                    as="select"
-                                                    id="faculty"
-                                                    className="field"
-                                                    name="faculty"
-                                                    onChange={(e: any) => {
-                                                        handleFacultyChange(e);
-                                                        handleChange(e);
-                                                    }}
-                                                >
-                                                    <option value="">Select Faculty (Just one)</option>
-                                                    {faculties?.map((faculty: any, index: number) => (
-                                                        <option key={index} value={faculty.faculty}>
-                                                            {faculty.faculty}
-                                                        </option>
-                                                    ))}
-                                                </Field>
+                                                <Field disabled={!checked} id="faculty" name="faculty" placeholder="Faculty" className="field" />
                                                 <label htmlFor="department">Department</label>
                                                 <Field
-                                                    // initialValues={values.department}
-                                                    as="select"
-                                                    className="field"
+                                                    disabled={!checked}
                                                     id="department"
                                                     name="department"
-                                                >
-                                                    <option value="">Select Department (Just one)</option>
-                                                    {departments?.map((department: any, index: number) => (
-                                                        <option key={index} value={department}>
-                                                            {department}
-                                                        </option>
-                                                    ))}
-                                                </Field>
-                                            </div>)
-                                    }
+                                                    placeholder="Department"
+                                                    className="field"
+                                                />
+                                            </div>) :
+                                                (<div className="institutions-box">
+
+                                                    <label htmlFor="studyInstitution">Study institution</label>
+                                                    <Field
+                                                        // initialValues={values.studyInstitution}
+                                                        as='select'
+                                                        id="studyInstitution"
+                                                        name="studyInstitution"
+                                                        className="field"
+                                                        onChange={(e: any) => {
+                                                            handleInstitutionChange(e);
+                                                            handleChange(e);
+                                                        }}
+                                                    >
+                                                        <option value="">Select Institution (Just one)</option>
+                                                        {institutions?.map(
+                                                            (institution: Institution, index: number) => (
+                                                                <option
+                                                                    key={index}
+                                                                    value={institution.studyInstitution}
+                                                                >
+                                                                    {institution.studyInstitution}
+                                                                </option>
+                                                            )
+                                                        )}
+                                                    </Field>
+                                                    <label htmlFor="faculty">Faculty</label>
+                                                    <Field
+                                                        // initialValues={values.faculty}
+                                                        as="select"
+                                                        id="faculty"
+                                                        className="field"
+                                                        name="faculty"
+                                                        onChange={(e: any) => {
+                                                            handleFacultyChange(e);
+                                                            handleChange(e);
+                                                        }}
+                                                    >
+                                                        <option value="">Select Faculty (Just one)</option>
+                                                        {faculties?.map((faculty: any, index: number) => (
+                                                            <option key={index} value={faculty.faculty}>
+                                                                {faculty.faculty}
+                                                            </option>
+                                                        ))}
+                                                    </Field>
+                                                    <label htmlFor="department">Department</label>
+                                                    <Field
+                                                        // initialValues={values.department}
+                                                        as="select"
+                                                        className="field"
+                                                        id="department"
+                                                        name="department"
+                                                    >
+                                                        <option value="">Select Department (Just one)</option>
+                                                        {departments?.map((department: any, index: number) => (
+                                                            <option key={index} value={department}>
+                                                                {department}
+                                                            </option>
+                                                        ))}
+                                                    </Field>
+                                                </div>)
+                                        }
+                                    </div>
+                                </div>
+                                <div className="role-container">
+                                    <label htmlFor="role">User role</label>
+                                    <Field
+                                        // initialValues={values.role}
+                                        as="select"
+                                        id="role"
+                                        name="role"
+                                        className="field"
+                                        placeholder="Study institution"
+                                    >
+                                        {ROLES?.map((role: any, index: number) => (
+                                            <option key={index} value={role}>
+                                                {role}
+                                            </option>
+                                        ))}
+                                    </Field>
+                                </div>
+                                <div className="button__submit">
+                                    <Button variant="contained" type="submit">Submit</Button>
                                 </div>
                             </div>
-                            <div className="role-container">
-                                <label htmlFor="role">User role</label>
-                                <Field
-                                    // initialValues={values.role}
-                                    as="select"
-                                    id="role"
-                                    name="role"
-                                    className="field"
-                                    placeholder="Study institution"
-                                >
-                                    {ROLES?.map((role: any, index: number) => (
-                                        <option key={index} value={role}>
-                                            {role}
-                                        </option>
-                                    ))}
-                                </Field>
-                            </div>
-                        </div>
-                        <button type="submit">Submit</button>
-                    </Form>
-                )}
-            </Formik>
+                        </Form>
+                    )}
+                </Formik>
+            </div>
         </div>
     )
         : (

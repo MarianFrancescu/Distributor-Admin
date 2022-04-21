@@ -2,12 +2,28 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%;
+}
+
+.student-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .institutions-box {
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     width: 15em;
+    height: 100%;
+}
+
+.role-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .field {
@@ -17,7 +33,15 @@
     border-radius: 5px;
 }
 
+.form-container__student {
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    row-gap: 2em;
+}
+
 .field:focus {
-    border-width: 1px;
-    box-shadow: 0px 0px 2px #0066ff;
+    // outline-color: #004643ff;
+    border-width: 0;
+    border-color: none;
+    box-shadow: 0px 0px 3px #004643ff;
 }
