@@ -1,13 +1,29 @@
 .students-container {
     width: 90%;
-    margin: auto;
+    margin-top: auto;
 }
 
-.students-box {
-    height: 100vh;
+.students-card {
+    height: calc(100vh - 64px);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+}
+
+.students-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.table-container { 
+    flex: 1;
+}
+
+.search-box {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2em;
 }
 
 .actions-wrapper {
