@@ -82,7 +82,7 @@ function Students() {
             userID={userID}
             closeModal={handleCloseDeleteDialog}
           />
-          <div className="search-box">
+          <div className="search-box__student">
             <label htmlFor="search">
               Search by student name
               <input id="search" type="text" onChange={handleSearch} />
