@@ -112,7 +112,7 @@ function Disciplines() {
                                         <TableCell align="left">
                                             <div className="actions-wrapper">
                                             <Button size="small" variant="outlined" onClick={() => handleClickEdit(row._id as string)}>Edit</Button>
-                                            <Button size="small" variant="outlined" onClick={() => handleClickDelete(row._id as string)}>Delete</Button>
+                                            <Button size="small" variant="outlined" color="error" onClick={() => handleClickDelete(row._id as string)}>Delete</Button>
                                             </div>
                                         </TableCell>
                                     </TableRow>

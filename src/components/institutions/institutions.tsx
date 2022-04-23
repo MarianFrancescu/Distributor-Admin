@@ -64,7 +64,7 @@ function Institutions() {
                 <div className="grid-cards">
                     {
                         institutions.map((institution: Institution, index: number) => (
-                            <Card sx={{ minWidth: 275, maxWidth: 350 }} key={index}>
+                            <Card sx={{ minWidth: 275, maxWidth: 350 }} key={index} className="institution-card" onClick={() => handleClickEdit(institution._id as string)}>
                                 <CardContent>
                                     <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
                                         {institution?.studyInstitution}

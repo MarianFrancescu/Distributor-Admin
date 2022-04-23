@@ -169,6 +169,7 @@ function Students() {
                           <Button
                             size="small"
                             variant="outlined"
+                            color="error"
                             onClick={() => handleClickDelete(row._id as string)}
                           >
                             Delete
