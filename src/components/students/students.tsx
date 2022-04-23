@@ -85,7 +85,7 @@ function Students() {
           <div className="search-box__student">
             <label htmlFor="search">
               Search by student name
-              <input id="search" type="text" onChange={handleSearch} />
+              <input id="search" className="field" placeholder="Student name" type="text" onChange={handleSearch} />
             </label>
           </div>
           <TableContainer className="table-container" component={Paper}>

@@ -243,7 +243,7 @@ function Student() {
                                     </Field>
                                 </div>
                                 <div className="button__submit">
-                                    <Button variant="contained" type="submit">Submit</Button>
+                                    <Button variant="contained" type="submit">SAVE</Button>
                                 </div>
                             </div>
                         </Form>

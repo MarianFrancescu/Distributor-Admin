@@ -312,7 +312,7 @@ function Discipline() {
                 />
               </div>
             </div>
-            <Button variant="contained" type="submit">Submit</Button>
+            <Button variant="contained" type="submit">SAVE</Button>
           </Form>
         )}
       </Formik>

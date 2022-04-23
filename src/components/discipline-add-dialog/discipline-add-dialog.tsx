@@ -124,18 +124,21 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
                     <div className="trivial-details">
                       <label htmlFor="name">Name</label>
                       <Field
+                        className="field"
                         id="name"
                         name="name"
                         placeholder="Discipline Name"
                       />
                       <label htmlFor="teacher">Teacher</label>
                       <Field
+                        className="field"
                         id="teacher"
                         name="teacher"
                         placeholder="Teacher"
                       />
                       <label htmlFor="studyYear">Study year</label>
                       <Field
+                        className="field"
                         id="studyYear"
                         name="studyYear"
                         placeholder="Study year"
@@ -144,6 +147,7 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
                         Max students
                       </label>
                       <Field
+                        className="field"
                         id="maxNoOfStudentsPerTimetable"
                         name="maxNoOfStudentsPerTimetable"
                         placeholder="Max students"
@@ -154,6 +158,7 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
                         Study institution
                       </label>
                       <Field
+                        className="field"
                         as="select"
                         id="studyInstitution"
                         name="studyInstitution"
@@ -177,6 +182,7 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
                       </Field>
                       <label htmlFor="faculty">Faculty</label>
                       <Field
+                        className="field"
                         as="select"
                         id="faculty"
                         name="faculty"
@@ -195,6 +201,7 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
                       </Field>
                       <label htmlFor="department">Department</label>
                       <Field
+                        className="field"
                         as="select"
                         id="department"
                         name="department"
@@ -222,6 +229,7 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
                                     Option #{index + 1}
                                   </label>
                                   <Field
+                                    className="field"
                                     name={`timetable.${index}.option`}
                                     placeholder="Option"
                                     type="text"
@@ -257,7 +265,7 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
                                   <Button
                                     size="small"
                                     type="button"
-                                    className="secondary"
+                                    color="secondary"
                                     onClick={() => remove(index)}
                                   >
                                     <DeleteIcon />

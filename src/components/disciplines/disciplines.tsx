@@ -75,7 +75,7 @@ function Disciplines() {
                     <div className="search-box">
                         <label htmlFor="search">
                             Search by discipline
-                            <input id="search" type="text" onChange={handleSearch} />
+                            <input className="field" id="search" type="text" placeholder="Discipline name" onChange={handleSearch} />
                         </label>
                     <Button className="button__container" onClick={handleOpen}>Add discipline</Button>
                     </div>
