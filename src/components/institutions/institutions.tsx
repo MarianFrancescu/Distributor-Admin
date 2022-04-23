@@ -6,6 +6,7 @@ import service from "../../services/service";
 import Institution from "../../models/institution.interface";
 import { useNavigate } from "react-router-dom";
 import InstitutionDeleteDialog from "../institution-delete-dialog/institution-delete-dialog";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const bull = (
     <Box
@@ -56,7 +57,7 @@ function Institutions() {
 
     return (
         <div className="institution-container">
-            <Button variant="contained" className="dialog-button" onClick={handleOpen}>Add institution</Button>
+            <Button variant="contained" className="dialog-button" startIcon={<AddCircleIcon />} onClick={handleOpen}>Add institution</Button>
             <InstitutionAddDialog openModal={open} closeModal={handleClose} />
             <InstitutionDeleteDialog openModal={openDeleteDialog} studyInstitution={institutionName} closeModal={handleCloseDeleteDialog} />
             <div className="institution-cards">
@@ -79,7 +80,7 @@ function Institutions() {
                                 </CardContent>
                                 <CardActions className="actions-card">
                                     <Button variant="contained" onClick={() => handleClickEdit(institution._id as string)} size="small">Edit</Button>
-                                    <Button variant="contained" color="secondary" onClick={() => handleClickDelete(institution.studyInstitution as string)}>Delete</Button>
+                                    <Button variant="contained" color="error" onClick={() => handleClickDelete(institution.studyInstitution as string)}>Delete</Button>
                                 </CardActions>
                             </Card>
                         ))}

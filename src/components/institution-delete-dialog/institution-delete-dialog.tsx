@@ -45,8 +45,10 @@ function InstitutionDeleteDialog({openModal, closeModal, studyInstitution}: any)
               <Typography id="transition-modal-description" sx={{ mt: 2 }}>
                 Delete this discipline?
               </Typography>
-              <Button onClick={closeModal}>Close</Button>
-              <Button onClick={() => {handleDelete(); closeModal()}}>Delete</Button>
+              <div className="actions-area">
+                <Button onClick={closeModal}>Close</Button>
+                <Button variant="contained" color="error" onClick={() => {handleDelete(); closeModal()}}>Delete</Button>
+              </div>
             </Box>
           </Fade>
         </Modal>
