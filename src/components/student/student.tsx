@@ -36,7 +36,6 @@ function Student() {
         try {
             const response = await service.getUser(userID as string);
             const userResponse = response as User;
-            console.log(userResponse)
             setUser(userResponse);
         } catch (error) {
             console.log(error);

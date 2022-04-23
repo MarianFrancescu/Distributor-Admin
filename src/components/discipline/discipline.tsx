@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import service from "../../services/service";
 import DisciplineInterface from "../../models/discipline.interface";
 import "./discipline.scss";
+import { Button, FormControlLabel, Switch } from "@mui/material";
+import Institution from "../../models/institution.interface";
 
 interface MyFormValues {
   name: string;
@@ -20,6 +22,16 @@ function Discipline() {
   const [discipline, setDiscipline] = useState<any>();
   const { disciplineID } = useParams();
 
+  const [institutions, setInstitutions] = useState<any>();
+  const [faculties, setFaculties] = useState<any>();
+  const [departments, setDepartments] = useState<any>();
+  const [checked, setChecked] = useState(false);
+
+  const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.checked)
+    setChecked(event.target.checked);
+  };
+
   const getDisciplineData = async () => {
     try {
       const response = await service.getDiscipline(disciplineID as string);
@@ -30,33 +42,62 @@ function Discipline() {
     }
   };
 
+  const getInstitutionsData = async () => {
+    try {
+        const response = await service.getInstitutions();
+        const institutionsResponse = response as Institution[];
+        setInstitutions([...institutionsResponse]);
+    } catch (error) {
+        console.log(error);
+    }
+};
+
   const updateDisciplineData = (discipline: DisciplineInterface) => {
     service.updateDiscipline(disciplineID as string, discipline);
-  }
+  };
 
   useEffect(() => {
     getDisciplineData();
+    getInstitutionsData();
   }, []);
 
   const initialValues: MyFormValues = {
-    name: discipline?.name ? discipline?.name : "",
-    teacher: discipline?.teacher ? discipline?.teacher : "",
-    studyInstitution: discipline?.studyInstitution
+    name: discipline?.name ? discipline?.name : '',
+    teacher: discipline?.teacher ? discipline?.teacher : '',
+    studyInstitution: discipline?.studyInstitution && !checked
       ? discipline?.studyInstitution
-      : "",
-    faculty: discipline?.faculty ? discipline?.faculty : "",
-    department: discipline?.department ? discipline?.department : "",
-    studyYear: discipline?.studyYear ? discipline?.studyYear : "",
+      : '',
+    faculty: discipline?.faculty && !checked ? discipline?.faculty : '',
+    department: discipline?.department && !checked ? discipline?.department : '',
+    studyYear: discipline?.studyYear ? discipline?.studyYear : '',
     maxNoOfStudentsPerTimetable: discipline?.maxNoOfStudentsPerTimetable
       ? discipline?.maxNoOfStudentsPerTimetable
-      : "",
+      : '',
     timetable: discipline?.timetable ? discipline?.timetable : [],
   };
+
+  const handleInstitutionChange = (obj: any) => {
+    const facultiess = institutions.find(
+      (i: Institution) => i.studyInstitution === obj.target.value
+    ).faculties;
+    // setInstitution(obj.target.value);
+    setFaculties(facultiess);
+    setDepartments(null);
+  };
+
+  const handleFacultyChange = (e: any) => {
+    const departmentss = faculties.find(
+      (f: any) => f.faculty === e.target.value
+    )?.departments;
+    setDepartments(departmentss);
+  };
+
   return discipline ? (
     <div className="discipline-container">
       <h1>Edit Discipline</h1>
 
       <Formik
+        enableReinitialize
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           console.log({ values, actions });
@@ -65,17 +106,26 @@ function Discipline() {
           actions.setSubmitting(false);
         }}
       >
-        {({ values }) => (
+        {({
+          values,
+          dirty,
+          isSubmitting,
+          handleChange,
+          handleSubmit,
+          handleReset,
+          setFieldValue,
+        }) => (
           <Form>
             <div className="form-container">
               <div className="basic-details">
                 <div className="trivial-details">
                   <label htmlFor="name">Name</label>
-                  <Field id="name" name="name" placeholder="First Name" />
+                  <Field className="field" id="name" name="name" placeholder="First Name" />
                   <label htmlFor="teacher">Teacher</label>
-                  <Field id="teacher" name="teacher" placeholder="Teacher" />
+                  <Field className="field" id="teacher" name="teacher" placeholder="Teacher" />
                   <label htmlFor="studyYear">Study year</label>
                   <Field
+                    className="field"
                     id="studyYear"
                     name="studyYear"
                     placeholder="Study year"
@@ -84,26 +134,116 @@ function Discipline() {
                     Max students
                   </label>
                   <Field
+                    className="field"
                     id="maxNoOfStudentsPerTimetable"
                     name="maxNoOfStudentsPerTimetable"
                     placeholder="Max students"
                   />
                 </div>
                 <div className="institutional-details">
-                  <label htmlFor="studyInstitution">Study institution</label>
-                  <Field
-                    id="studyInstitution"
-                    name="studyInstitution"
-                    placeholder="Study institution"
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={checked}
+                        onChange={handleSwitchChange}
+                        inputProps={{ "aria-label": "controlled" }}
+                      />
+                    }
+                    label="Edit institutional details?"
                   />
-                  <label htmlFor="faculty">Faculty</label>
-                  <Field id="faculty" name="faculty" placeholder="Faculty" />
-                  <label htmlFor="department">Department</label>
-                  <Field
-                    id="department"
-                    name="department"
-                    placeholder="Department"
-                  />
+                  {!checked ? (
+                    <div className="institutions-box">
+                      <label htmlFor="studyInstitution">
+                        Study institution
+                      </label>
+                      <Field
+                        className="field"
+                        disabled={!checked}
+                        id="studyInstitution"
+                        name="studyInstitution"
+                        placeholder="Study institution"
+                      />
+                      <label htmlFor="faculty">Faculty</label>
+                      <Field
+                        disabled={!checked}
+                        id="faculty"
+                        name="faculty"
+                        placeholder="Faculty"
+                        className="field"
+                      />
+                      <label htmlFor="department">Department</label>
+                      <Field
+                        disabled={!checked}
+                        id="department"
+                        name="department"
+                        placeholder="Department"
+                        className="field"
+                      />
+                    </div>
+                  ) : (
+                    <div className="institutions-box">
+                      <label htmlFor="studyInstitution">
+                        Study institution
+                      </label>
+                      <Field
+                        // initialValues={values.studyInstitution}
+                        as="select"
+                        id="studyInstitution"
+                        name="studyInstitution"
+                        className="field"
+                        onChange={(e: any) => {
+                          handleInstitutionChange(e);
+                          handleChange(e);
+                        }}
+                      >
+                        <option value="">Select Institution (Just one)</option>
+                        {institutions?.map(
+                          (institution: Institution, index: number) => (
+                            <option
+                              key={index}
+                              value={institution.studyInstitution}
+                            >
+                              {institution.studyInstitution}
+                            </option>
+                          )
+                        )}
+                      </Field>
+                      <label htmlFor="faculty">Faculty</label>
+                      <Field
+                        // initialValues={values.faculty}
+                        as="select"
+                        id="faculty"
+                        className="field"
+                        name="faculty"
+                        onChange={(e: any) => {
+                          handleFacultyChange(e);
+                          handleChange(e);
+                        }}
+                      >
+                        <option value="">Select Faculty (Just one)</option>
+                        {faculties?.map((faculty: any, index: number) => (
+                          <option key={index} value={faculty.faculty}>
+                            {faculty.faculty}
+                          </option>
+                        ))}
+                      </Field>
+                      <label htmlFor="department">Department</label>
+                      <Field
+                        // initialValues={values.department}
+                        as="select"
+                        className="field"
+                        id="department"
+                        name="department"
+                      >
+                        <option value="">Select Department (Just one)</option>
+                        {departments?.map((department: any, index: number) => (
+                          <option key={index} value={department}>
+                            {department}
+                          </option>
+                        ))}
+                      </Field>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="timetable-container">
@@ -115,10 +255,11 @@ function Discipline() {
                         values.timetable.map((option, index) => (
                           <div className="row" key={index}>
                             <div className="col">
-                              <label htmlFor={`timetable.${index}.option`}>
+                              <label className="label-box" htmlFor={`timetable.${index}.option`}>
                                 Option #{index + 1}
                               </label>
                               <Field
+                                className="field"
                                 name={`timetable.${index}.option`}
                                 placeholder="Option"
                                 type="text"
@@ -150,30 +291,28 @@ function Discipline() {
                             </div>
                           )} 
                       </div> */}
-                            <div className="col">
-                              <button
-                                type="button"
-                                className="secondary"
+                            
+                              <Button
+                                color="error"
                                 onClick={() => remove(index)}
                               >
                                 X
-                              </button>
-                            </div>
+                              </Button>
                           </div>
                         ))}
-                      <button
-                        type="button"
+                      <Button
+                        variant="outlined"
                         className="secondary"
                         onClick={() => push({ option: "" })}
                       >
                         Add Option
-                      </button>
+                      </Button>
                     </div>
                   )}
                 />
               </div>
             </div>
-            <button type="submit">Submit</button>
+            <Button variant="contained" type="submit">Submit</Button>
           </Form>
         )}
       </Formik>
