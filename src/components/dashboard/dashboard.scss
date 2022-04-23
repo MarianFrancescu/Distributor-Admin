@@ -1,6 +1,23 @@
 .dashboard-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    // justify-content: space-between;
     justify-content: center;
     align-items: center;
+    gap: 3em;
+    width: 100%;
+}
+
+.card-container {
+    background-color: #faf4d3ff !important;
+}
+
+@media screen and (max-width: 1200px) {
+    .dashboard-container {
+        margin-top: 5em;
+        flex-direction: column;
+        justify-content: flex-start;
+        max-height: 550px;
+        overflow-y: auto;
+    }
 }
