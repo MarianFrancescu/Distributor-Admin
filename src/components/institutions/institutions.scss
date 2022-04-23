@@ -3,6 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;    
+    width: 100%;
+    overflow-y: auto;
 }
 
 .dialog-button {
@@ -13,8 +15,7 @@
 .institution-cards {
   position: relative;
   top: 4em;
-  max-height: 580px;
-  overflow-y: auto;
+  max-height: 500px;
 }
 
 .actions-card {

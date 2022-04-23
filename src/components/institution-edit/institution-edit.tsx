@@ -38,7 +38,7 @@ function InstitutionEdit() {
     };
 
     return studyInstitution ? (
-        <div className="institution-container">
+        <div className="institution-container__edit">
             <div className="institution-wrapper">
                 <Formik initialValues={initialValues}
                     onSubmit={(values, actions) => {
