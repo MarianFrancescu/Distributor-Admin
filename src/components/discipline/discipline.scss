@@ -1,6 +1,9 @@
 .discipline-wrapper {
     width: 100%;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .discipline-container {
@@ -53,12 +56,22 @@
     align-items: center;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 956px) {
     .discipline-container {
         width: 100%;
     }
 
+    .form-container {
+         display: flex;
+         flex-direction: column;
+    }
+
+    .timetable-box {
+        flex-wrap: nowrap;
+    }
+
     .basic-details {
-        column-gap: 5em;
+        display: flex;
+        flex-direction: column;
     }
 }
