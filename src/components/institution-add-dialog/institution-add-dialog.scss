@@ -8,13 +8,27 @@
     margin-bottom: 0.5em;
 }
 
+.institution-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .departments-fields {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    padding-left: 60px;
 }
 
 .col__inner {
     display: flex;
     justify-content: flex-end;
+}
+
+.row__institution {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }

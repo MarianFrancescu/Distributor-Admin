@@ -1,55 +1,72 @@
-import { Modal, Backdrop, Fade, Box, Typography, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import {
+  Modal,
+  Backdrop,
+  Fade,
+  Box,
+  Typography,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import { Field, FieldArray, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import service from "../../services/service";
-import './institution-add-dialog.scss';
-import InstitutionInterface from '../../models/institution.interface';
-import DeleteIcon from '@mui/icons-material/Delete';
+import "./institution-add-dialog.scss";
+import InstitutionInterface from "../../models/institution.interface";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
 
 function InstitutionAddDialog({ openModal, closeModal }: any) {
-
   const addInstitution = (studyInstitution: InstitutionInterface) => {
-    service.addInstitution(studyInstitution.studyInstitution, studyInstitution.faculties)
-  }
+    service.addInstitution(
+      studyInstitution.studyInstitution,
+      studyInstitution.faculties
+    );
+  };
 
   const initialValues = {
-    studyInstitution: '',
+    studyInstitution: "",
     faculties: [
       {
-        faculty: '',
-        departments: []
-      }
-    ]
-  }
+        faculty: "",
+        departments: [],
+      },
+    ],
+  };
 
   return (
-    <div>
+    <div className="institution-fields">
       <Dialog open={openModal} onClose={closeModal}>
         <DialogTitle>Add Institution</DialogTitle>
         <DialogContent>
           <DialogContentText className="text-field">
             Add new institution to be utilised by admins
           </DialogContentText>
-          <Formik initialValues={initialValues}
+          <Formik
+            initialValues={initialValues}
             onSubmit={(values, actions) => {
               addInstitution(values);
               closeModal();
               actions.setSubmitting(false);
             }}
           >
-            {props => {
+            {(props) => {
               const {
                 values,
                 touched,
@@ -59,17 +76,19 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                 handleChange,
                 handleBlur,
                 handleSubmit,
-                handleReset
+                handleReset,
               } = props;
               return (
                 <Form>
                   <div className="fields">
-                    <TextField className="text-field"
+                    <TextField
+                      className="text-field"
                       id="studyInstitution"
                       name="studyInstitution"
                       label="Institution"
                       variant="outlined"
-                      onChange={handleChange} />
+                      onChange={handleChange}
+                    />
                     {/* <TextField className="text-field" 
                     id="faculty" 
                     name="faculty" 
@@ -89,7 +108,7 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                         <div>
                           {values.faculties.length > 0 &&
                             values.faculties.map((faculty, index) => (
-                              <div className="row" key={index}>
+                              <div className="row__institution" key={index}>
                                 <div className="col">
                                   <label htmlFor={`faculties.${index}.faculty`}>
                                     Faculty
@@ -99,6 +118,14 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                                     placeholder="Faculty"
                                     type="text"
                                   />
+                                  <Button
+                                    type="button"
+                                    className="secondary"
+                                    onClick={() => remove(index)}
+                                    color="error"
+                                  >
+                                    <DeleteIcon />
+                                  </Button>
                                   {/* {errors.timetable &&
                           errors.timetable[index] &&
                           errors.timetable[index].name &&
@@ -109,40 +136,51 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                             </div>
                           )} */}
                                 </div>
-                                <FieldArray name={`faculties.${index}.departments`}
+                                <FieldArray
+                                  name={`faculties.${index}.departments`}
                                   render={({ insert, remove, push }) => (
                                     <div className="departments-fields">
-                                      {values.faculties[index].departments?.length > 0 &&
-                                        values.faculties[index].departments?.map((department, index2) => (
-                                          <div className="row" key={index2}>
-                                            <div className="col">
-                                              <label htmlFor={`faculties.${index}.departments`}>Departments</label>
-                                              <Field
-                                                name={`faculties.${index}.departments.${index2}`}
-                                                placeholder="Faculty department"
-
-                                              />
+                                      {values.faculties[index].departments
+                                        ?.length > 0 &&
+                                        values.faculties[
+                                          index
+                                        ].departments?.map(
+                                          (department, index2) => (
+                                            <div
+                                              className="row__institution"
+                                              key={index2}
+                                            >
+                                              <div className="col">
+                                                <label
+                                                  htmlFor={`faculties.${index}.departments`}
+                                                >
+                                                  Departments
+                                                </label>
+                                                <Field
+                                                  name={`faculties.${index}.departments.${index2}`}
+                                                  placeholder="Faculty department"
+                                                />
+                                                <Button
+                                                  type="button"
+                                                  className="secondary"
+                                                  onClick={() => remove(index2)}
+                                                  color="error"
+                                                >
+                                                  <DeleteIcon />
+                                                </Button>
+                                              </div>
                                             </div>
-                                            <div className="col__inner">
-                                              <Button
-                                                type="button"
-                                                className="secondary"
-                                                onClick={() => remove(index2)}
-                                                color="error"
-                                              >
-                                                <DeleteIcon />
-                                              </Button>
-                                            </div>
-                                          </div>
-                                        ))}
+                                          )
+                                        )}
                                       <Button
                                         size="small"
                                         variant="outlined"
                                         type="button"
                                         className="secondary"
-                                        onClick={() => push('')}
+                                        onClick={() => push("")}
+                                        startIcon={<AddCircleIcon />}
                                       >
-                                        Add Department
+                                        Department
                                       </Button>
                                       {/* {errors.timetable &&
                           errors.timetable[index] &&
@@ -156,16 +194,6 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                                     </div>
                                   )}
                                 />
-                                <div className="col">
-                                  <Button
-                                    type="button"
-                                    className="secondary"
-                                    onClick={() => remove(index)}
-                                    color="error"
-                                  >
-                                    <DeleteIcon />
-                                  </Button>
-                                </div>
                               </div>
                             ))}
                           <Button
@@ -174,8 +202,9 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                             type="button"
                             className="secondary"
                             onClick={() => push({ faculty: "" })}
+                            startIcon={<AddCircleIcon />}
                           >
-                            Add Faculty
+                            Faculty
                           </Button>
                         </div>
                       )}
@@ -183,7 +212,9 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                   </div>
                   <DialogActions>
                     <Button onClick={closeModal}>Cancel</Button>
-                    <Button type="submit" disabled={!dirty}>Save</Button>
+                    <Button variant="contained" type="submit" disabled={!dirty}>
+                      Save
+                    </Button>
                   </DialogActions>
                 </Form>
               );

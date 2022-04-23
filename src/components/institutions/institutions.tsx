@@ -78,8 +78,8 @@ function Institutions() {
                                     </Typography>
                                 </CardContent>
                                 <CardActions className="actions-card">
-                                    <Button onClick={() => handleClickEdit(institution._id as string)} size="small">Edit</Button>
-                                    <Button onClick={() => handleClickDelete(institution.studyInstitution as string)}>Delete</Button>
+                                    <Button variant="contained" onClick={() => handleClickEdit(institution._id as string)} size="small">Edit</Button>
+                                    <Button variant="contained" color="secondary" onClick={() => handleClickDelete(institution.studyInstitution as string)}>Delete</Button>
                                 </CardActions>
                             </Card>
                         ))}

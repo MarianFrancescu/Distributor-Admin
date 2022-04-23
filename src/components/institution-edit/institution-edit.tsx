@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Institution from "../../models/institution.interface";
 import service from "../../services/service";
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import './institution-edit.scss';
 
@@ -83,19 +84,28 @@ function InstitutionEdit() {
                                     <FieldArray
                                         name="faculties"
                                         render={({ insert, remove, push }) => (
-                                            <div>
+                                            <div className="institution-fields">
                                                 {values.faculties.length > 0 &&
                                                     values.faculties.map((faculty, index) => (
-                                                        <div className="row" key={index}>
+                                                        <div className="row__institution" key={index}>
                                                             <div className="col">
                                                                 <label htmlFor={`faculties.${index}.faculty`}>
-                                                                    Faculty
+                                                                    Faculty 
                                                                 </label>
                                                                 <Field
+                                                                    className="field"
                                                                     name={`faculties.${index}.faculty`}
                                                                     placeholder="Faculty"
                                                                     type="text"
                                                                 />
+                                                                <Button
+                                                                    type="button"
+                                                                    className="secondary"
+                                                                    onClick={() => remove(index)}
+                                                                    color="error"
+                                                                >
+                                                                    <DeleteIcon />
+                                                                </Button>
                                                                 {/* {errors.timetable &&
                           errors.timetable[index] &&
                           errors.timetable[index].name &&
@@ -111,16 +121,14 @@ function InstitutionEdit() {
                                                                     <div className="departments-fields">
                                                                         {values.faculties[index].departments?.length > 0 &&
                                                                             values.faculties[index].departments?.map((department, index2) => (
-                                                                                <div className="row" key={index2}>
+                                                                                <div className="row__institution" key={index2}>
                                                                                     <div className="col">
-                                                                                        <label htmlFor={`faculties.${index}.departments`}>Departments</label>
+                                                                                        <label htmlFor={`faculties.${index}.departments`}>Department </label>
                                                                                         <Field
                                                                                             name={`faculties.${index}.departments.${index2}`}
                                                                                             placeholder="Faculty department"
-
+                                                                                            className="field"
                                                                                         />
-                                                                                    </div>
-                                                                                    <div className="col__inner">
                                                                                         <Button
                                                                                             type="button"
                                                                                             className="secondary"
@@ -130,6 +138,16 @@ function InstitutionEdit() {
                                                                                             <DeleteIcon />
                                                                                         </Button>
                                                                                     </div>
+                                                                                    {/* <div className="col__inner">
+                                                                                        <Button
+                                                                                            type="button"
+                                                                                            className="secondary"
+                                                                                            onClick={() => remove(index2)}
+                                                                                            color="error"
+                                                                                        >
+                                                                                            <DeleteIcon />
+                                                                                        </Button>
+                                                                                    </div> */}
                                                                                 </div>
                                                                             ))}
                                                                         <Button
@@ -138,8 +156,9 @@ function InstitutionEdit() {
                                                                             type="button"
                                                                             className="secondary"
                                                                             onClick={() => push('')}
+                                                                            startIcon={<AddCircleIcon />}
                                                                         >
-                                                                            Add Department
+                                                                            Department
                                                                         </Button>
                                                                         {/* {errors.timetable &&
                           errors.timetable[index] &&
@@ -153,16 +172,6 @@ function InstitutionEdit() {
                                                                     </div>
                                                                 )}
                                                             />
-                                                            <div className="col">
-                                                                <Button
-                                                                    type="button"
-                                                                    className="secondary"
-                                                                    onClick={() => remove(index)}
-                                                                    color="error"
-                                                                >
-                                                                    <DeleteIcon />
-                                                                </Button>
-                                                            </div>
                                                         </div>
                                                     ))}
                                                 <Button
@@ -171,14 +180,15 @@ function InstitutionEdit() {
                                                     type="button"
                                                     className="secondary"
                                                     onClick={() => push({ faculty: "" })}
+                                                    startIcon={<AddCircleIcon />}
                                                 >
-                                                    Add Faculty
+                                                    Faculty
                                                 </Button>
                                             </div>
                                         )}
                                     />
                                 </div>
-                                <Button type="submit" disabled={!dirty}>Save</Button>
+                                <Button variant="contained" type="submit" disabled={!dirty}>Save</Button>
                             </Form>
                         );
                     }}

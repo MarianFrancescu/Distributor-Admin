@@ -1,11 +1,12 @@
 .institution-container {
+    margin-top: 2em;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .institution-wrapper {
-    max-height: 580px;
+    max-height: 550px;
     overflow-y: auto;
     max-width: 90vh;
     min-width: 70vh;

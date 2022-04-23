@@ -6,6 +6,7 @@ import DisciplineInterface from "../../models/discipline.interface";
 import { Navigate, useNavigate } from "react-router-dom";
 import DisciplineAddDialog from "../discipline-add-dialog/discipline-add-dialog";
 import DisciplineDeleteDialog from "../discipline-delete-dialog/discipline-delete-dialog";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 function createData(name: string, teacher: string,
     studyInstitution: string, faculty: string, department: string, studyYear: number) {
@@ -77,7 +78,7 @@ function Disciplines() {
                             Search by discipline
                             <input className="field" id="search" type="text" placeholder="Discipline name" onChange={handleSearch} />
                         </label>
-                    <Button className="button__container" onClick={handleOpen}>Add discipline</Button>
+                    <Button className="button__container" startIcon={<AddCircleIcon />} onClick={handleOpen}>Add discipline</Button>
                     </div>
                     <TableContainer className="table-container" component={Paper}>
                         <Table stickyHeader sx={{ minWidth: 650 }} aria-label="simple table">
