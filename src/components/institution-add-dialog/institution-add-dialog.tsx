@@ -19,6 +19,7 @@ import "./institution-add-dialog.scss";
 import InstitutionInterface from "../../models/institution.interface";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+ import * as Yup from 'yup';
 
 const style = {
   position: "absolute" as "absolute",
@@ -31,6 +32,11 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const ValidationSchema = Yup.object().shape({
+   studyInstitution: Yup.string()
+     .required('Required')
+ });
 
 function InstitutionAddDialog({ openModal, closeModal }: any) {
   const addInstitution = (studyInstitution: InstitutionInterface) => {
@@ -60,6 +66,7 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
           </DialogContentText>
           <Formik
             initialValues={initialValues}
+            validationSchema={ValidationSchema}
             onSubmit={(values, actions) => {
               addInstitution(values);
               closeModal();
@@ -88,20 +95,8 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                       label="Institution"
                       variant="outlined"
                       onChange={handleChange}
+                      error={errors.studyInstitution?.length! > 0}
                     />
-                    {/* <TextField className="text-field" 
-                    id="faculty" 
-                    name="faculty" 
-                    label="Faculty" 
-                    variant="outlined" 
-                    onChange={handleChange} />
-                  <TextField className="text-field"
-                    id="department"
-                    name="department"
-                    label="Department"
-                    variant="outlined"
-                    onChange={handleChange}
-                  /> */}
                     <FieldArray
                       name="faculties"
                       render={({ insert, remove, push }) => (
@@ -126,15 +121,6 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                                   >
                                     <DeleteIcon />
                                   </Button>
-                                  {/* {errors.timetable &&
-                          errors.timetable[index] &&
-                          errors.timetable[index].name &&
-                          touched.timetable &&
-                          touched.timetable[index].name && (
-                            <div className="field-error">
-                              {errors.timetable[index].name}
-                            </div>
-                          )} */}
                                 </div>
                                 <FieldArray
                                   name={`faculties.${index}.departments`}
@@ -182,15 +168,6 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                                       >
                                         Department
                                       </Button>
-                                      {/* {errors.timetable &&
-                          errors.timetable[index] &&
-                          errors.timetable[index].email &&
-                          touched.timetable &&
-                          touched.timetable[index].email && (
-                            <div className="field-error">
-                              {errors.timetable[index].email}
-                            </div>
-                          )}  */}
                                     </div>
                                   )}
                                 />
@@ -212,7 +189,7 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
                   </div>
                   <DialogActions>
                     <Button onClick={closeModal}>Cancel</Button>
-                    <Button variant="contained" type="submit" disabled={!dirty}>
+                    <Button variant="contained" type="submit" disabled={!dirty || errors.studyInstitution?.length! > 0}>
                       Save
                     </Button>
                   </DialogActions>

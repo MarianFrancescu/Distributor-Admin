@@ -11,6 +11,7 @@ function MyNavbar({menuOpen, setMenuOpen}: any) {
         localStorage.removeItem('admin-token');
         localStorage.removeItem('admin-id');
         setUserStatus(false);
+        window.location.reload();
     }
 
     const getUserToken = () => {

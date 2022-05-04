@@ -25,17 +25,17 @@ function Sidebar({menuOpen, setMenuOpen}: any) {
             </SidebarHeader>
             <SidebarContent >
                 <Menu className="list-container" iconShape="circle">
-                    <MenuItem active={window.location.pathname === "/students"} icon={<PeopleAltIcon />}>
+                    <MenuItem icon={<PeopleAltIcon />}>
                         <Link className="link" to="/students">
                             Students
                         </Link>
                     </MenuItem>
-                    <MenuItem active={window.location.pathname === "/disciplines"} icon={<LibraryBooksRoundedIcon />}>
+                    <MenuItem icon={<LibraryBooksRoundedIcon />}>
                         <Link className="link" to="/disciplines">
                             Disciplines
                         </Link>
                     </MenuItem>
-                    <MenuItem active={window.location.pathname === "/institutions"} icon={<CorporateFareRoundedIcon />}>
+                    <MenuItem icon={<CorporateFareRoundedIcon />}>
                         <Link className="link" to="/institutions">
                             Institutions
                         </Link>

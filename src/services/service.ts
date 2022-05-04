@@ -2,7 +2,8 @@ import axios from "axios";
 import Discipline from "../models/discipline.interface";
 import Institution from "../models/institution.interface";
 import User from "../models/user.interface";
-const apiUrl = 'http://localhost:8080/';
+// const apiUrl = 'http://localhost:8080/';
+const apiUrl = 'http://54.174.30.45:8080/';
 
 export default {
     loginUser(email: string, password: string) {
