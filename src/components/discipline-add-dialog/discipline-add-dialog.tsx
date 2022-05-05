@@ -20,6 +20,7 @@ import service from "../../services/service";
 import Institution from "../../models/institution.interface";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Discipline from "../../models/discipline.interface";
+import * as Yup from 'yup';
 
 interface MyFormValues {
   name: string;
@@ -43,6 +44,19 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const ValidationSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(1, "Too short")
+    .required('Required'),
+  teacher: Yup.string()
+    .min(1, "Too short")
+    .required('Required'),
+  maxNoOfStudentsPerTimetable: Yup.number()
+    .required('Required'),
+  studyYear: Yup.string()
+    .required('Required')
+});
 
 function DisciplineAddDialog({ openModal, closeModal }: any) {
   const [institutions, setInstitutions] = useState<any>([]);
@@ -89,7 +103,7 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
     faculty: "",
     department: "",
     studyYear: "",
-    maxNoOfStudentsPerTimetable: 0,
+    maxNoOfStudentsPerTimetable: "",
     timetable: [],
   };
 
@@ -99,10 +113,11 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
         <DialogTitle>Add Institution</DialogTitle>
         <DialogContent>
           <DialogContentText className="text-field">
-            Add new institution to be utilised by admins
+            Add new institution to be used by admins
           </DialogContentText>
           <Formik
             initialValues={initialValues}
+            validationSchema={ValidationSchema}
             onSubmit={(values, actions) => {
               addDiscipline(values);
               closeModal();
@@ -111,6 +126,8 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
           >
             {({
               values,
+              touched,
+              errors,
               dirty,
               isSubmitting,
               handleChange,
@@ -120,38 +137,50 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
             }) => (
               <Form>
                 <div className="form-container">
-                  <div className="basic-details">
+                  <div className="basic-details new">
                     <div className="trivial-details">
                       <label htmlFor="name">Name</label>
                       <Field
-                        className="field"
+                        className={"field " + (errors.name && touched.name ? "error-text" : "")}
                         id="name"
                         name="name"
                         placeholder="Discipline Name"
                       />
+                      {errors.name && touched.name ? (
+                        <div className="error-text">{errors.name}</div>
+                      ) : null}
                       <label htmlFor="teacher">Teacher</label>
                       <Field
-                        className="field"
+                        className={"field " + (errors.teacher && touched.teacher ? "error-text" : "")}
                         id="teacher"
                         name="teacher"
                         placeholder="Teacher"
                       />
+                      {errors.teacher && touched.teacher ? (
+                        <div className="error-text">{errors.teacher}</div>
+                      ) : null}
                       <label htmlFor="studyYear">Study year</label>
                       <Field
-                        className="field"
+                        className={"field " + (errors.studyYear && touched.studyYear ? "error-text" : "")}
                         id="studyYear"
                         name="studyYear"
                         placeholder="Study year"
                       />
+                      {errors.studyYear && touched.studyYear ? (
+                        <div className="error-text">{errors.studyYear}</div>
+                      ) : null}
                       <label htmlFor="maxNoOfStudentsPerTimetable">
                         Max students
                       </label>
                       <Field
-                        className="field"
+                        className={"field " + (errors.maxNoOfStudentsPerTimetable && touched.maxNoOfStudentsPerTimetable ? "error-text" : "")}
                         id="maxNoOfStudentsPerTimetable"
                         name="maxNoOfStudentsPerTimetable"
                         placeholder="Max students"
                       />
+                      {errors.maxNoOfStudentsPerTimetable && touched.maxNoOfStudentsPerTimetable ? (
+                        <div className="error-text">{errors.maxNoOfStudentsPerTimetable}</div>
+                      ) : null}
                     </div>
                     <div className="institutional-details">
                       <label htmlFor="studyInstitution">
@@ -289,7 +318,7 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
                 </div>
                 <DialogActions>
                   <Button onClick={closeModal}>Cancel</Button>
-                  <Button type="submit">Save</Button>
+                  <Button type="submit" disabled={ (errors.name || errors.teacher || errors.maxNoOfStudentsPerTimetable || errors.studyYear) || !dirty ? true : false}>Save</Button>
                 </DialogActions>
               </Form>
             )}

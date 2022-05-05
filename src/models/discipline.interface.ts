@@ -7,7 +7,7 @@ export default interface Discipline {
     faculty: string;
     department: string;
     studyYear: string;
-    maxNoOfStudentsPerTimetable: number;
+    maxNoOfStudentsPerTimetable: number | string;
     created?: string;
   }
   

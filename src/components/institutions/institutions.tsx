@@ -65,17 +65,12 @@ function Institutions() {
                     {
                         institutions.map((institution: Institution, index: number) => (
                             <Card sx={{ minWidth: 275, maxWidth: 350 }} key={index} className="institution-card" onClick={() => handleClickEdit(institution._id as string)}>
-                                <CardContent>
-                                    <Typography sx={{ fontSize: 16 }} color="text.secondary" gutterBottom>
+                                <CardContent sx={{ height: 100 }}>
+                                    <Typography sx={{ fontSize: 18 }} color="text.primary" gutterBottom>
                                         {institution?.studyInstitution}
                                     </Typography>
                                     <Typography sx={{ mb: 1.5 }} color="text.secondary">
                                         No. of faculties: {institution.faculties.length}
-                                    </Typography>
-                                    <Typography variant="body2">
-                                        well meaning and kindly.
-                                        <br />
-                                        {/* {'"a benevolent smile"'} */}
                                     </Typography>
                                 </CardContent>
                                 <CardActions className="actions-card">
