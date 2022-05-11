@@ -6,12 +6,34 @@ import Institution from "../../models/institution.interface";
 import service from "../../services/service";
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-
 import './institution-edit.scss';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function InstitutionEdit() {
     const [studyInstitution, setStudyInstitution] = useState<Institution>();
     const { institutionID } = useParams();
+
+    const [openSnack, setOpenSnack] = React.useState(false);
+
+    const handleClick = () => {
+        setOpenSnack(true);
+    };
+
+    const handleCloseSnack = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenSnack(false);
+    };
 
     const getInstitutionData = async () => {
         try {
@@ -25,7 +47,7 @@ function InstitutionEdit() {
     }
 
     const updateInstitutionData = (institution: Institution) => {
-        service.updateInstitution(institutionID as string, institution);
+        service.updateInstitution(institutionID as string, institution).then(() => handleClick());
     }
 
     useEffect(() => {
@@ -39,6 +61,11 @@ function InstitutionEdit() {
 
     return studyInstitution ? (
         <div className="institution-container__edit">
+            <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack}>
+                <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+                    Updated institution details
+                </Alert>
+            </Snackbar>
             <div className="institution-wrapper">
                 <Formik initialValues={initialValues}
                     onSubmit={(values, actions) => {
@@ -90,7 +117,7 @@ function InstitutionEdit() {
                                                         <div className="row__institution" key={index}>
                                                             <div className="col">
                                                                 <label htmlFor={`faculties.${index}.faculty`}>
-                                                                    Faculty 
+                                                                    Faculty
                                                                 </label>
                                                                 <Field
                                                                     className="field"

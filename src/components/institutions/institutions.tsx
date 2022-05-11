@@ -42,11 +42,17 @@ function Institutions() {
     const [institutionName, setInstitutionName] = useState('');
     const setInstitutionNameFunction = (id: string) => setInstitutionName(id);
 
-    const handleClickEdit = (institutionID: string) => {
+    const handleClickEdit = (event: React.MouseEvent<HTMLButtonElement>, institutionID: string) => {
+        event.stopPropagation();
         navigation(`/institution/${institutionID}`);
     }
 
-    const handleClickDelete = (name: string) => {
+    const handleClickEditCard = (institutionID: string) => {
+        navigation(`/institution/${institutionID}`);
+    }
+
+    const handleClickDelete = (event: React.MouseEvent<HTMLButtonElement>, name: string) => {
+        event.stopPropagation();
         setInstitutionNameFunction(name);
         handleOpenDeleteDialog();
     }
@@ -64,7 +70,7 @@ function Institutions() {
                 <div className="grid-cards">
                     {
                         institutions.map((institution: Institution, index: number) => (
-                            <Card sx={{ minWidth: 275, maxWidth: 350 }} key={index} className="institution-card" onClick={() => handleClickEdit(institution._id as string)}>
+                            <Card sx={{ minWidth: 275, maxWidth: 350 }} key={index} className="institution-card" onClick={() => handleClickEditCard(institution._id as string)}>
                                 <CardContent sx={{ height: 100 }}>
                                     <Typography sx={{ fontSize: 18 }} color="text.primary" gutterBottom>
                                         {institution?.studyInstitution}
@@ -74,8 +80,8 @@ function Institutions() {
                                     </Typography>
                                 </CardContent>
                                 <CardActions className="actions-card">
-                                    <Button variant="contained" onClick={() => handleClickEdit(institution._id as string)} size="small">Edit</Button>
-                                    <Button variant="contained" color="error" onClick={() => handleClickDelete(institution.studyInstitution as string)}>Delete</Button>
+                                    <Button variant="contained" onClick={(event) => handleClickEdit(event, institution._id as string)} size="small">Edit</Button>
+                                    <Button variant="contained" color="error" onClick={(event) => handleClickDelete(event, institution.studyInstitution as string)}>Delete</Button>
                                 </CardActions>
                             </Card>
                         ))}

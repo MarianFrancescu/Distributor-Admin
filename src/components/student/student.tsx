@@ -6,6 +6,15 @@ import Institution from "../../models/institution.interface";
 import User from "../../models/user.interface";
 import service from "../../services/service";
 import './student.scss';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref,
+) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 interface MyFormValues extends User {
     firstName: string,
@@ -22,6 +31,7 @@ function Student() {
     const [faculties, setFaculties] = useState<any>();
     const [departments, setDepartments] = useState<any>();
     const [user, setUser] = useState<User>();
+    const [open, setOpen] = React.useState(false);
     const { userID } = useParams();
 
     const ROLES = ['basic', 'admin', 'superAdmin'];
@@ -30,6 +40,18 @@ function Student() {
 
     const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setChecked(event.target.checked);
+    };
+
+    const handleClick = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
     };
 
     const getUserData = async () => {
@@ -53,7 +75,7 @@ function Student() {
     };
 
     const updateUserData = (user: User) => {
-        service.updateUser(userID as string, user);
+        service.updateUser(userID as string, user).then(() => handleClick());
     }
 
     const initialValues: MyFormValues = {
@@ -90,6 +112,11 @@ function Student() {
 
     return user ? (
         <div className="student-container">
+            <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={open} autoHideDuration={3000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Updated user details
+                </Alert>
+            </Snackbar>
             <div className="student-wrapper">
                 <h1>Edit student details</h1>
 

@@ -6,6 +6,15 @@ import DisciplineInterface from "../../models/discipline.interface";
 import "./discipline.scss";
 import { Button, FormControlLabel, Switch } from "@mui/material";
 import Institution from "../../models/institution.interface";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 interface MyFormValues {
   name: string;
@@ -26,6 +35,19 @@ function Discipline() {
   const [faculties, setFaculties] = useState<any>();
   const [departments, setDepartments] = useState<any>();
   const [checked, setChecked] = useState(false);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+        return;
+    }
+
+    setOpen(false);
+};
 
   const handleSwitchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log(event.target.checked);
@@ -53,7 +75,7 @@ function Discipline() {
   };
 
   const updateDisciplineData = (discipline: DisciplineInterface) => {
-    service.updateDiscipline(disciplineID as string, discipline);
+    service.updateDiscipline(disciplineID as string, discipline).then(() => handleClick());
   };
 
   useEffect(() => {
@@ -96,6 +118,11 @@ function Discipline() {
 
   return discipline ? (
     <div className="discipline-wrapper">
+      <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+          Updated discipline details
+        </Alert>
+      </Snackbar>
       <div className="discipline-container">
         <h1>Edit Discipline</h1>
 
