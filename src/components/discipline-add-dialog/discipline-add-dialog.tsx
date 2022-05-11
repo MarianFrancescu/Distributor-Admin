@@ -75,7 +75,7 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
   };
 
   const addDiscipline = (discipline: Discipline) => {
-    service.addDisicpline(discipline);
+    service.addDisicpline(discipline).then(() => window.location.reload());
   }
 
   useEffect(() => {
@@ -110,10 +110,10 @@ function DisciplineAddDialog({ openModal, closeModal }: any) {
   return (
     <div>
       <Dialog open={openModal} onClose={closeModal}>
-        <DialogTitle>Add Institution</DialogTitle>
+        <DialogTitle>Add discipline</DialogTitle>
         <DialogContent>
           <DialogContentText className="text-field">
-            Add new institution to be used by admins
+            Add new discipline to be used by admins
           </DialogContentText>
           <Formik
             initialValues={initialValues}

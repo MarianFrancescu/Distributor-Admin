@@ -43,7 +43,7 @@ function InstitutionAddDialog({ openModal, closeModal }: any) {
     service.addInstitution(
       studyInstitution.studyInstitution,
       studyInstitution.faculties
-    );
+    ).then(() => {window.location.reload()});
   };
 
   const initialValues = {

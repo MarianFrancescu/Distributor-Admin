@@ -1,6 +1,15 @@
 import { Modal, Backdrop, Fade, Box, Typography, Button } from "@mui/material";
 import React from "react";
 import service from "../../services/service";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const style = {
   position: "absolute" as "absolute",
@@ -15,14 +24,32 @@ const style = {
 };
 
 function StudentDeleteDialog({ openModal, closeModal, userID }: any) {
+  const [openSnack, setOpenSnack] = React.useState(false);
+
+  const handleClick = () => {
+    setOpenSnack(true);
+  };
+
+  const handleCloseSnack = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenSnack(false);
+  };
+
   const handleDelete = () => {
-    service.deleteUser(userID);
-    closeModal();
+    service.deleteUser(userID).then(() => { closeModal(); handleClick(); window.location.reload() });
   };
 
   return (
     <div>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
+      <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack}>
+        <Alert onClose={handleCloseSnack} severity="error" sx={{ width: '100%' }}>
+          Deleted student
+        </Alert>
+      </Snackbar>
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"

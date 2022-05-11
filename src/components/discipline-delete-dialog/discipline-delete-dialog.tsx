@@ -20,8 +20,7 @@ function DisciplineDeleteDialog({ openModal, closeModal, disciplineID }: any) {
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
   const handleDelete = () => {
-    service.deleteDiscipline(disciplineID);
-    closeModal();
+    service.deleteDiscipline(disciplineID).then(() => { closeModal(); window.location.reload();});
   };
 
   return (
