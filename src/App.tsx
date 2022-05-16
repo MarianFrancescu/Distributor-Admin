@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.scss';
 import Dashboard from './components/dashboard/dashboard';
 import Disciplines from './components/disciplines/disciplines';
@@ -14,7 +14,7 @@ import Student from './components/student/student';
 import { createTheme, ThemeProvider } from '@mui/material';
 
 export type GlobalContext = {
-  isLoggedUser: boolean, 
+  isLoggedUser: boolean,
   setUserStatus: (u: boolean) => void
 };
 
@@ -29,34 +29,44 @@ const theme = createTheme({
   }
 });
 
-export const MyContext = React.createContext<GlobalContext>({isLoggedUser: false, setUserStatus: () => {}});
+export const MyContext = React.createContext<GlobalContext>({ isLoggedUser: false, setUserStatus: () => { } });
 
 function App() {
 
   const [isLoggedUser, setUserStatus] = useState(false);
 
+  const isValidLog = () => {
+    return isLoggedUser || localStorage.getItem('admin-token')?.length! > 0 ? true : false;
+  }
+
   const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className='App'>
-      <MyContext.Provider value={{isLoggedUser, setUserStatus}}>
-      <ThemeProvider theme={theme}>
-        <BrowserRouter>
-          <MyNavbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-          <Sidebar className="sidebar" menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-          <div className='app-container'>
-            <Routes>
-                <Route path='/' element={<Dashboard/>}></Route>
-                <Route path='/dashboard' element={<Dashboard/>}></Route>
-                <Route path='/login' element={<Login/>}></Route>
-                <Route path='/students' element={<Students/>}></Route>
-                <Route path='/student/:userID' element={<Student/>}></Route>
-                <Route path='/disciplines' element={<Disciplines/>}></Route>
-                <Route path='/discipline/:disciplineID' element={<Discipline/>}></Route>
-                <Route path='/institutions' element={<Institutions/>}></Route>
-                <Route path='/institution/:institutionID' element={<InstitutionEdit />}></Route>
-            </Routes>
-          </div>
-        </BrowserRouter>
+      <MyContext.Provider value={{ isLoggedUser, setUserStatus }}>
+        <ThemeProvider theme={theme}>
+          <BrowserRouter>
+            <MyNavbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+            <Sidebar className="sidebar" menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+            <div className='app-container'>
+              <Routes>
+                <Route path='/' element={<Dashboard />}></Route>
+                <Route path='/dashboard' element={<Dashboard />}></Route>
+                <Route path='/login' element={<Login />}></Route>
+                {isValidLog() ? (
+                  <>
+                    <Route path='/students' element={<Students />}></Route>
+                    <Route path='/student/:userID' element={<Student />}></Route>
+                    <Route path='/disciplines' element={<Disciplines />}></Route>
+                    <Route path='/discipline/:disciplineID' element={<Discipline />}></Route>
+                    <Route path='/institutions' element={<Institutions />}></Route>
+                    <Route path='/institution/:institutionID' element={<InstitutionEdit />}></Route>
+                  </>
+                ) :
+                  <Route path="*" element={<Navigate to={'/login'} />}></Route>
+                }
+              </Routes>
+            </div>
+          </BrowserRouter>
         </ThemeProvider >
       </MyContext.Provider>
     </div>
