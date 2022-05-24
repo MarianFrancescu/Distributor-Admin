@@ -101,13 +101,13 @@ function InstitutionEdit() {
                     label="Faculty" 
                     variant="outlined" 
                     onChange={handleChange} />
-                  <TextField className="text-field"
+                <TextField className="text-field"
                     id="department"
                     name="department"
                     label="Department"
                     variant="outlined"
                     onChange={handleChange}
-                  /> */}
+                /> */}
                                     <FieldArray
                                         name="faculties"
                                         render={({ insert, remove, push }) => (
@@ -134,14 +134,14 @@ function InstitutionEdit() {
                                                                     <DeleteIcon />
                                                                 </Button>
                                                                 {/* {errors.timetable &&
-                          errors.timetable[index] &&
-                          errors.timetable[index].name &&
-                          touched.timetable &&
-                          touched.timetable[index].name && (
+                        errors.timetable[index] &&
+                        errors.timetable[index].name &&
+                        touched.timetable &&
+                        touched.timetable[index].name && (
                             <div className="field-error">
-                              {errors.timetable[index].name}
+                            {errors.timetable[index].name}
                             </div>
-                          )} */}
+                        )} */}
                                                             </div>
                                                             <FieldArray name={`faculties.${index}.departments`}
                                                                 render={({ insert, remove, push }) => (
@@ -188,14 +188,14 @@ function InstitutionEdit() {
                                                                             Department
                                                                         </Button>
                                                                         {/* {errors.timetable &&
-                          errors.timetable[index] &&
-                          errors.timetable[index].email &&
-                          touched.timetable &&
-                          touched.timetable[index].email && (
+                        errors.timetable[index] &&
+                        errors.timetable[index].email &&
+                        touched.timetable &&
+                        touched.timetable[index].email && (
                             <div className="field-error">
-                              {errors.timetable[index].email}
+                            {errors.timetable[index].email}
                             </div>
-                          )}  */}
+                        )}  */}
                                                                     </div>
                                                                 )}
                                                             />
@@ -215,7 +215,7 @@ function InstitutionEdit() {
                                         )}
                                     />
                                 </div>
-                                <Button variant="contained" type="submit" disabled={!dirty}>Save</Button>
+                                <Button className="submit-edit__button" variant="contained" type="submit" disabled={!dirty}>Save</Button>
                             </Form>
                         );
                     }}
