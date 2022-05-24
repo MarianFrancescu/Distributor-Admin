@@ -149,28 +149,28 @@ function Discipline() {
               <div className="form-container">
                 <div className="basic-details">
                   <div className="trivial-details">
-                    <label htmlFor="name">Name</label>
+                    <label className="label-data" htmlFor="name">Name</label>
                     <Field
                       className="field"
                       id="name"
                       name="name"
                       placeholder="First Name"
                     />
-                    <label htmlFor="teacher">Teacher</label>
+                    <label className="label-data" htmlFor="teacher">Teacher</label>
                     <Field
                       className="field"
                       id="teacher"
                       name="teacher"
                       placeholder="Teacher"
                     />
-                    <label htmlFor="studyYear">Study year</label>
+                    <label className="label-data" htmlFor="studyYear">Study year</label>
                     <Field
                       className="field"
                       id="studyYear"
                       name="studyYear"
                       placeholder="Study year"
                     />
-                    <label htmlFor="maxNoOfStudentsPerTimetable">
+                    <label className="label-data" htmlFor="maxNoOfStudentsPerTimetable">
                       Max students
                     </label>
                     <Field

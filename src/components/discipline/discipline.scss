@@ -27,6 +27,10 @@
     .trivial-details {
         display: flex;
         flex-direction: column;
+
+        .label-data {
+            display: flex;
+        }
     }
 
     .institutional-details {

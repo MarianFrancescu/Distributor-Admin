@@ -5,6 +5,15 @@ import './login.scss'
 import service from '../../services/service';
 import { useNavigate } from 'react-router-dom';
 import {MyContext} from '../../App';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function Login() {
 
@@ -13,20 +22,44 @@ function Login() {
 
     const {isLoggedUser, setUserStatus} = useContext(MyContext);
 
+    const [openSnack, setOpenSnack] = React.useState(false);
+
+    const handleClick = () => {
+        setOpenSnack(true);
+    };
+
+    const handleCloseSnack = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+        return;
+        }
+
+        setOpenSnack(false);
+    };
+
     const history = useNavigate();
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         service.loginUser(email, password).then(data => {
-            localStorage.setItem('admin-token', data.token);
-            localStorage.setItem('admin-id', data.userID);
-            setUserStatus(true);
+            if(data.role.includes('admin') || data.role.includes('superAdmin')){
+                localStorage.setItem('admin-token', data.token);
+                localStorage.setItem('admin-id', data.userID);
+                setUserStatus(true);
+                history('/dashboard');
+                }
+                handleClick(); 
             }
-        );
-        history('/dashboard');
+            
+        ).catch(err => console.log(err));
+        
     }
 
     return (
         <div className="login-card">
+            <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }} open={openSnack} autoHideDuration={3000} onClose={handleCloseSnack}>
+                <Alert onClose={handleCloseSnack} severity="error" sx={{ width: '100%' }}>
+                Cannot log into account. You probably have no admin rights.
+                </Alert>
+            </Snackbar>
             <div className="login-container">
                 <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
                     {<LockOpenRoundedIcon />}
